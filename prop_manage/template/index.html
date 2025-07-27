@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+<link rel="stylesheet" href="{% static 'assets/css/index.css' %}">
 {% block content %}
 
 <!-- Alert Banner -->
@@ -14,138 +15,263 @@
 
 <!-- Hero Section -->
 <div class="position-relative hero-section" style="background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%); min-height: 600px;">
-  
-  <div class="container position-relative py-5">
-    <div class="row justify-content-center text-center">
-      <div class="col-lg-8">
-        <h1 class="display-4 fw-bold text-white mb-4">
-          Find Your Perfect <span class="text-warning">Rental Property</span>
-        </h1>
-        <p class="lead text-white mb-5">
-          Discover thousands of verified properties from trusted landlords. Your dream home is just a search away.
-        </p>
-        
-        <!-- Search Form -->
-        <div class="bg-white rounded-3 p-4 shadow-lg">
-          <form class="row g-3">
-            <div class="col-md-3">
-              <div class="input-group">
-                <span class="input-group-text bg-transparent border-end-0">
-                  <i class="bi bi-geo-alt-fill text-primary"></i>
-                </span>
-                <select class="form-select border-start-0" aria-label="Select location">
-                  <option selected>Select location</option>
-                  <option value="nairobi">Nairobi</option>
-                  <option value="mombasa">Mombasa</option>
-                  <option value="kisumu">Kisumu</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="input-group">
-                <span class="input-group-text bg-transparent border-end-0">
-                  <i class="bi bi-house-fill text-primary"></i>
-                </span>
-                <select class="form-select border-start-0" aria-label="Property type">
-                  <option selected>Property type</option>
-                  <option value="apartment">Apartment</option>
-                  <option value="house">House</option>
-                  <option value="studio">Studio</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <input type="number" class="form-control" placeholder="$ Min price" aria-label="Min price">
-            </div>
-            <div class="col-md-3">
-              <input type="number" class="form-control" placeholder="$ Max price" aria-label="Max price">
-            </div>
-            <div class="col-12 text-center mt-3">
-              <button type="submit" class="btn btn-primary btn-lg px-5">
-                <i class="bi bi-search me-2"></i>Search Properties
-              </button>
-            </div>
-          </form>
+  <div class="jumbotron-section position-relative text-white text-center">
+    <div class="jumbotron-overlay d-flex align-items-center justify-content-center">
+      <div class="container py-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <h1 class="display-4 fw-bold mb-4">
+              Find Your Perfect <span class="text-warning">Rental Property</span>
+            </h1>
+            <p class="lead mb-0">
+              Discover thousands of verified properties from trusted landlords. Your dream home is just a search away.
+            </p>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 shadow-sm">
-        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
-             class="card-img-top" alt="Property Management" style="height: 200px; object-fit: cover;">
-        <div class="card-body text-center">
-          <i class="bi bi-house-door-fill text-primary" style="font-size: 2.5rem;"></i>
-          <h5 class="card-title mt-3">Property Management</h5>
-          <p class="card-text">Efficiently manage multiple properties with detailed information, photos, and status tracking.</p>
+        <!-- Search Form (reduced width) -->
+        <div class="row justify-content-center mt-4">
+          <div class="col-md-8 col-lg-6 mx-auto">
+            <div class="bg-white rounded-3 p-4 shadow-lg">
+              <form class="row g-3">
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <span class="input-group-text bg-transparent border-end-0">
+                      <i class="bi bi-geo-alt-fill text-primary"></i>
+                    </span>
+                    <select class="form-select border-start-0" aria-label="Select location">
+                      <option selected>Select location</option>
+                      <option value="nairobi">Nairobi</option>
+                      <option value="mombasa">Mombasa</option>
+                      <option value="kisumu">Kisumu</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <span class="input-group-text bg-transparent border-end-0">
+                      <i class="bi bi-house-fill text-primary"></i>
+                    </span>
+                    <select class="form-select border-start-0" aria-label="Property type">
+                      <option selected>Property type</option>
+                      <option value="apartment">Apartment</option>
+                      <option value="house">House</option>
+                      <option value="studio">Studio</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <input type="number" class="form-control" placeholder="$ Min price" aria-label="Min price">
+                </div>
+                <div class="col-md-3">
+                  <input type="number" class="form-control" placeholder="$ Max price" aria-label="Max price">
+                </div>
+                <div class="col-12 text-center mt-3">
+                  <button type="submit" class="btn btn-primary btn-lg px-5">
+                    <i class="bi bi-search me-2"></i>Search Properties
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
+        <!-- End Search Form -->
       </div>
-    </div>
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 shadow-sm">
-        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
-             class="card-img-top" alt="Tenant Management" style="height: 200px; object-fit: cover;">
-        <div class="card-body text-center">
-          <i class="bi bi-people-fill text-success" style="font-size: 2.5rem;"></i>
-          <h5 class="card-title mt-3">Tenant Management</h5>
-          <p class="card-text">Keep track of tenant information, lease agreements, and communication history.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 shadow-sm">
-        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
-             class="card-img-top" alt="Maintenance Tracking" style="height: 200px; object-fit: cover;">
-        <div class="card-body text-center">
-          <i class="bi bi-tools text-warning" style="font-size: 2.5rem;"></i>
-          <h5 class="card-title mt-3">Maintenance Tracking</h5>
-          <p class="card-text">Monitor maintenance requests, schedule repairs, and track completion status.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container mt-5">
-  <div class="row align-items-center">
-    <div class="col-md-6">
-      <h2>Why Choose PropManager?</h2>
-      <ul class="list-unstyled">
-        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Comprehensive property portfolio management</li>
-        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Automated rent collection and payment tracking</li>
-        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Real-time maintenance request system</li>
-        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Detailed financial reporting and analytics</li>
-        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Mobile-friendly interface for on-the-go access</li>
-      </ul>
-    </div>
-    <div class="col-md-6">
-      <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
-           alt="Property Management Dashboard" class="img-fluid rounded shadow" style="max-height: 300px; object-fit: cover;">
     </div>
   </div>
 </div>
 
 <!-- Stats Section -->
-<div class="mt-5 mb-5 mr-5 ml-5 bg-primary text-white py-5" style="background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);">
+<div class="bg-white text-primary py-5">
   <div class="container">
     <div class="row text-center">
       <div class="col-md-4 mb-3">
-        <h2 class="display-6 fw-bold text-white">10,000+</h2>
-        <p class="lead text-white-50">Properties Listed</p>
+        <h2 class="display-6 fw-bold">10,000+</h2>
+        <p class="lead">Properties Listed</p>
       </div>
       <div class="col-md-4 mb-3">
-        <h2 class="display-6 fw-bold text-white">5,000+</h2>
-        <p class="lead text-white-50">Happy Tenants</p>
+        <h2 class="display-6 fw-bold">5,000+</h2>
+        <p class="lead">Happy Tenants</p>
       </div>
       <div class="col-md-4 mb-3">
-        <h2 class="display-6 fw-bold text-white">1,000+</h2>
-        <p class="lead text-white-50">Verified Landlords</p>
+        <h2 class="display-6 fw-bold">1,000+</h2>
+        <p class="lead">Verified Landlords</p>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Welcome Section -->
+<div class="container my-5">
+  <div class="row align-items-center">
+    <div class="col-md-6 mb-4 mb-md-0">
+      <h2 class="fw-bold mb-3">Welcome to PropManager</h2>
+      <p class="lead">PropManager is your trusted platform for seamless property management and rental solutions. We connect tenants and landlords through our innovative platform, making property management easier, more transparent, and more efficient than ever before.</p>
+      <p>Whether you're looking for your dream rental home or need to manage your property portfolio, PropManager has you covered with powerful tools and a user-friendly experience.</p>
+      <a href="#" class="btn btn-primary mt-3">Learn More About Us</a>
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="{% static 'assets/images/hero1.jpg' %}" alt="Welcome" class="img-fluid rounded shadow" style="max-height: 320px; object-fit: cover;">
+    </div>
+  </div>
+</div>
+
+<!-- Featured Properties Section -->
+<div class="container my-5">
+  <h2 class="text-center fw-bold mb-4">Featured Properties</h2>
+  <p class="text-center text-muted mb-5">Discover our handpicked selection of premium rental properties available now</p>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <img src="{% static 'assets/images/hero.jpg' %}" class="card-img-top" alt="Modern Downtown Apartment" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <span class="badge bg-primary mb-2">Apartment</span>
+          <span class="badge bg-light text-primary float-end">$1,200/month</span>
+          <h5 class="card-title mt-2">Modern Downtown Apartment</h5>
+          <p class="card-text text-muted mb-1"><i class="bi bi-geo-alt me-1"></i>Downtown, City Center</p>
+          <div class="mb-2">
+            <span class="text-warning"><i class="bi bi-star-fill"></i> 4.8</span> <small class="text-muted">(124 reviews)</small>
+          </div>
+          <div class="d-flex flex-wrap small text-muted mb-2">
+            <span class="me-3"><i class="bi bi-door-closed"></i> 2 Bedrooms</span>
+            <span class="me-3"><i class="bi bi-badge-wc"></i> 2 Bathrooms</span>
+            <span><i class="bi bi-car-front"></i> Parking</span>
+          </div>
+          <a href="#" class="btn btn-outline-primary w-100">View Details</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <img src="{% static 'assets/images/hero1.jpg' %}" class="card-img-top" alt="Luxury Bedsitter Studio" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <span class="badge bg-secondary mb-2">Bedsitter</span>
+          <span class="badge bg-light text-primary float-end">$800/month</span>
+          <h5 class="card-title mt-2">Luxury Bedsitter Studio</h5>
+          <p class="card-text text-muted mb-1"><i class="bi bi-geo-alt me-1"></i>Uptown, Riverside</p>
+          <div class="mb-2">
+            <span class="text-warning"><i class="bi bi-star-fill"></i> 4.6</span> <small class="text-muted">(89 reviews)</small>
+          </div>
+          <div class="d-flex flex-wrap small text-muted mb-2">
+            <span class="me-3"><i class="bi bi-door-closed"></i> 1 Bedroom</span>
+            <span class="me-3"><i class="bi bi-badge-wc"></i> 1 Bathroom</span>
+          </div>
+          <a href="#" class="btn btn-outline-primary w-100">View Details</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <img src="{% static 'assets/images/hero.jpg' %}" class="card-img-top" alt="Contemporary Urban Living" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <span class="badge bg-primary mb-2">Apartment</span>
+          <span class="badge bg-light text-primary float-end">$1,500/month</span>
+          <h5 class="card-title mt-2">Contemporary Urban Living</h5>
+          <p class="card-text text-muted mb-1"><i class="bi bi-geo-alt me-1"></i>Midtown, Business District</p>
+          <div class="mb-2">
+            <span class="text-warning"><i class="bi bi-star-fill"></i> 4.9</span> <small class="text-muted">(156 reviews)</small>
+          </div>
+          <div class="d-flex flex-wrap small text-muted mb-2">
+            <span class="me-3"><i class="bi bi-door-closed"></i> 3 Bedrooms</span>
+            <span class="me-3"><i class="bi bi-badge-wc"></i> 2 Bathrooms</span>
+            <span><i class="bi bi-car-front"></i> Parking</span>
+          </div>
+          <a href="#" class="btn btn-outline-primary w-100">View Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-4">
+    <a href="#" class="btn btn-outline-primary">View All Properties</a>
+  </div>
+</div>
+
+<!-- Why Choose PropManager Section -->
+<div class="bg-light py-5">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-4">Why Choose PropManager?</h2>
+    <p class="text-center text-muted mb-5">We're committed to providing the best property management experience with cutting-edge technology and exceptional service.</p>
+    <div class="row text-center">
+      <div class="col-md-3 mb-4">
+        <div class="mb-3"><i class="bi bi-people-fill" style="font-size: 2.5rem; color: #0d6efd;"></i></div>
+        <h5 class="fw-semibold">Easy to Use</h5>
+        <p class="text-muted small">Intuitive platform designed for both tenants and landlords with user-friendly interfaces and smooth navigation.</p>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="mb-3"><i class="bi bi-clock-history" style="font-size: 2.5rem; color: #0d6efd;"></i></div>
+        <h5 class="fw-semibold">24/7 Support</h5>
+        <p class="text-muted small">Round-the-clock customer support to help you with any questions or issues you might encounter.</p>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="mb-3"><i class="bi bi-shield-lock" style="font-size: 2.5rem; color: #0d6efd;"></i></div>
+        <h5 class="fw-semibold">Secure & Reliable</h5>
+        <p class="text-muted small">Bank-grade security measures and verified listings ensure your data and transactions are always protected.</p>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="mb-3"><i class="bi bi-star-fill" style="font-size: 2.5rem; color: #0d6efd;"></i></div>
+        <h5 class="fw-semibold">Verified Properties</h5>
+        <p class="text-muted small">All properties undergo thorough verification processes to ensure quality and authenticity for your peace of mind.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Testimonials Section -->
+<div class="container my-5">
+  <h2 class="text-center fw-bold mb-4">What Our Users Say</h2>
+  <p class="text-center text-muted mb-5">Don't just take our word for it. Here's what our satisfied users have to say about their PropManager experience.</p>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg p-4 text-center">
+        <div class="mb-3">
+          <i class="bi bi-quote" style="font-size: 2rem; color: #0d6efd;"></i>
+        </div>
+        <blockquote class="blockquote mb-4">
+          <p class="mb-0">"The verification process gave me confidence in my rental choice. Knowing that all properties are thoroughly checked makes such a difference in peace of mind."</p>
+        </blockquote>
+        <div class="d-flex align-items-center justify-content-center">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="rounded-circle me-3" width="48" height="48">
+          <div class="text-start">
+            <div class="fw-semibold">Emily Rodriguez</div>
+            <div class="text-muted small">Tenant</div>
+          </div>
+        </div>
+        <div class="mt-3">
+          <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+          <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+          <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+          <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+          <span class="text-warning"><i class="bi bi-star-half"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Call to Action Section -->
+<div class="py-5" style="background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);">
+  <div class="container">
+    <h2 class="text-center text-white fw-bold mb-4">Ready to Rent or List Your Property?</h2>
+    <p class="text-center text-white-50 mb-5">Join thousands of satisfied users who have found their perfect rental match through PropManager. Start your journey today!</p>
+    <div class="row justify-content-center mb-4">
+      <div class="col-md-4 mb-3">
+        <div class="bg-white rounded-3 p-4 text-center h-100">
+          <div class="mb-3"><i class="bi bi-house-door-fill text-primary" style="font-size: 2.5rem;"></i></div>
+          <h5 class="fw-semibold">For Tenants</h5>
+          <p class="text-muted small">Find your perfect rental home with verified listings and transparent pricing.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="bg-white rounded-3 p-4 text-center h-100">
+          <div class="mb-3"><i class="bi bi-person-badge-fill text-primary" style="font-size: 2.5rem;"></i></div>
+          <h5 class="fw-semibold">For Landlords</h5>
+          <p class="text-muted small">List your properties and connect with qualified tenants effortlessly.</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <a href="#" class="btn btn-light btn-lg px-5">Get Started Today <i class="bi bi-arrow-right ms-2"></i></a>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
