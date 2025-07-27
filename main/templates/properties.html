@@ -1,0 +1,26 @@
+<!-- chat_app/templates/chat_app/uploaded_images.html -->
+{% extends "base.html" %}
+{% block title %}Uploaded Images{% endblock %}
+
+{% block content %}
+    <div class="images-container">
+        <h1>Rental Properties & Apartments</h1>
+
+        {% if image_urls %}
+            <div class="image-grid">
+                {% for image_url in image_urls %}
+                    <div class="image-card">
+                        <img src="{{ image_url }}" alt="Property Image" class="responsive-image">
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-images-message">No images have been uploaded for this property yet.</p>
+        {% endif %}
+
+        <div class="images-actions">
+            {% comment %} <a href="{ url_for('add_property') }}" class="button secondary-button">Back to Add Property</a> {% endcomment %}
+            {# You might add a button here to upload more images or manage existing ones #}
+        </div>
+    </div>
+{% endblock %}
