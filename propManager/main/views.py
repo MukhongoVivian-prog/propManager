@@ -56,7 +56,7 @@ def register_view(request):
 
     return render(request, 'register.html')
 
-    
+@csrf_protect  
 def login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
