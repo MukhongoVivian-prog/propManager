@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-2 col-lg-2 p-0">
+      {% include 'tenant_sidebar.html' %}
+    </div>
+    <!-- Main Content -->
+    <div class="col-md-10 col-lg-10 py-4 px-4">
+      <h2 class="fw-bold mb-1">Browse Properties</h2>
+      <div class="row">
+        {% for property in properties %}
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            {% if property.images.first %}
+              <img src="{{ property.images.first.image.url }}" class="card-img-top" alt="{{ property.title }}">
+            {% else %}
+              <img src="https://via.placeholder.com/400x250?text=No+Image" class="card-img-top" alt="No image">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ property.title }}</h5>
+              <p class="card-text mb-1"><strong>Type:</strong> {{ property.get_property_type_display }}</p>
+              <p class="card-text mb-1"><strong>Location:</strong> {{ property.location }}</p>
+              <p class="card-text mb-1"><strong>Rent:</strong> ${{ property.monthly_rent }}/month</p>
+              <a href="{% url 'property_detail' property.pk %}" class="btn btn-primary btn-sm mt-2">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center text-muted">No properties available at the moment.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

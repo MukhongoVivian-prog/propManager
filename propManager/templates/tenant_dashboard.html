@@ -12,6 +12,45 @@
       <h2 class="fw-bold mb-1">Dashboard</h2>
       <div class="text-muted mb-4">Welcome back, {{ user.first_name }} {{ user.last_name }}</div>
 
+      <!-- Notifications Section -->
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-4" role="alert">
+            <i class="bi bi-bell-fill me-2"></i>
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <!-- Recent Bookings Notification -->
+      {% if user.bookings.all %}
+        {% with latest_booking=user.bookings.all|first %}
+          {% if latest_booking.status == 'pending' %}
+            <div class="alert alert-info alert-dismissible fade show mb-4" role="alert">
+              <i class="bi bi-info-circle me-2"></i>
+              <strong>New Booking:</strong> You have a pending booking for {{ latest_booking.property.title }}. 
+              <a href="{% url 'tenant_bookings' %}" class="alert-link">View your bookings</a> to reserve it.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% elif latest_booking.status == 'reserved' %}
+            <div class="alert alert-warning alert-dismissible fade show mb-4" role="alert">
+              <i class="bi bi-calendar-check me-2"></i>
+              <strong>Ready to Check In:</strong> Your booking for {{ latest_booking.property.title }} is reserved and ready for check-in.
+              <a href="{% url 'tenant_bookings' %}" class="alert-link">Go to bookings</a> to check in.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% elif latest_booking.status == 'checked_in' %}
+            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+              <i class="bi bi-check-circle me-2"></i>
+              <strong>Checked In:</strong> You are successfully checked in to {{ latest_booking.property.title }}.
+              <a href="{% url 'tenant_bookings' %}" class="alert-link">View booking details</a>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endif %}
+        {% endwith %}
+      {% endif %}
+
       <!-- Search Properties Card -->
       <div class="card mb-4 shadow-sm">
         <div class="card-body">
@@ -54,25 +93,61 @@
         {% for property in properties %}
         <div class="col-md-4">
           <div class="card h-100 shadow-sm">
-            <img src="{{ property.image }}" class="card-img-top" alt="{{ property.title }}" style="height: 200px; object-fit: cover;">
+            {% if property.images.first %}
+              <img src="{{ property.images.first.image.url }}" class="card-img-top" alt="{{ property.title }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+              <img src="https://via.placeholder.com/400x200?text=No+Image" class="card-img-top" alt="No image" style="height: 200px; object-fit: cover;">
+            {% endif %}
             <div class="card-body">
-              <span class="badge bg-primary mb-2">{{ property.get_property_type_display }}</span>
-              <span class="badge bg-light text-primary float-end">${{ property.price }}/month</span>
-              <h5 class="card-title mt-2">{{ property.title }}</h5>
-              <p class="card-text text-muted mb-1"><i class="bi bi-geo-alt me-1"></i>{{ property.location }}</p>
-              <div class="d-flex flex-wrap small text-muted mb-2">
-                <span class="me-3"><i class="bi bi-door-closed"></i> {{ property.bedrooms }} Bedrooms</span>
-                <span class="me-3"><i class="bi bi-badge-wc"></i> {{ property.bathrooms }} Bathrooms</span>
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="badge bg-primary">{{ property.get_property_type_display }}</span>
+                {% if property.status == 'Available' %}
+                  <span class="badge bg-success">Available</span>
+                {% else %}
+                  <span class="badge bg-secondary">Booked</span>
+                {% endif %}
               </div>
-              <button class="btn btn-outline-secondary btn-sm float-end" title="Add to Favorites">
-                <i class="bi bi-heart"></i>
-              </button>
+              <h5 class="card-title mt-2">{{ property.title }}</h5>
+              <p class="card-text text-muted mb-1">
+                <i class="bi bi-geo-alt me-1"></i>{{ property.location }}
+              </p>
+              <p class="card-text">
+                <strong class="text-primary">${{ property.monthly_rent }}/month</strong>
+              </p>
+              <div class="d-flex flex-wrap small text-muted mb-2">
+                {% if property.wifi %}<span class="me-2"><i class="bi bi-wifi"></i> WiFi</span>{% endif %}
+                {% if property.parking %}<span class="me-2"><i class="bi bi-car-front"></i> Parking</span>{% endif %}
+                {% if property.gym %}<span class="me-2"><i class="bi bi-heart-pulse"></i> Gym</span>{% endif %}
+                {% if property.pool %}<span class="me-2"><i class="bi bi-water"></i> Pool</span>{% endif %}
+                {% if property.security %}<span class="me-2"><i class="bi bi-shield-check"></i> Security</span>{% endif %}
+                {% if property.elevator %}<span class="me-2"><i class="bi bi-arrow-up-circle"></i> Elevator</span>{% endif %}
+              </div>
+              <div class="d-flex gap-2 mt-3">
+                <a href="{% url 'property_detail' property.pk %}" class="btn btn-outline-primary flex-fill">
+                  <i class="bi bi-eye"></i> View Details
+                </a>
+                {% if property.status == 'Available' %}
+                  <a href="{% url 'property_detail' property.pk %}" class="btn btn-primary flex-fill">
+                    <i class="bi bi-calendar-check"></i> Book Now
+                  </a>
+                {% else %}
+                  <button class="btn btn-secondary flex-fill" disabled>
+                    <i class="bi bi-calendar-x"></i> Booked
+                  </button>
+                {% endif %}
+              </div>
             </div>
           </div>
         </div>
         {% empty %}
         <div class="col-12">
-          <div class="alert alert-info text-center">No properties found.</div>
+          <div class="alert alert-info text-center">
+            <h4>No properties found</h4>
+            <p>Check back later for new listings or try adjusting your search criteria.</p>
+            <a href="{% url 'browse_properties' %}" class="btn btn-primary">
+              <i class="bi bi-search me-2"></i>Browse All Properties
+            </a>
+          </div>
         </div>
         {% endfor %}
       </div>

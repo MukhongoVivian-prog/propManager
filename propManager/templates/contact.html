@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section bg-primary text-white py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="display-4 fw-bold mb-4">Contact Us</h1>
+        <p class="lead mb-4">Get in touch with our team. We're here to help you with all your property management needs.</p>
+        <p class="mb-4">Whether you're a tenant looking for your perfect home or a landlord wanting to list your property, we're ready to assist you every step of the way.</p>
+      </div>
+      <div class="col-lg-6 text-center">
+        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+             alt="Customer Service" class="img-fluid rounded shadow-lg" style="max-height: 400px; object-fit: cover;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Information -->
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 mb-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body text-center p-4">
+            <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+              <i class="bi bi-geo-alt-fill" style="font-size: 1.5rem;"></i>
+            </div>
+            <h5 class="fw-bold mb-3">Visit Us</h5>
+            <p class="text-muted mb-2">Nairobi, Kenya</p>
+            <p class="text-muted small">Westlands, Nairobi<br>P.O. Box 12345-00100</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body text-center p-4">
+            <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+              <i class="bi bi-telephone-fill" style="font-size: 1.5rem;"></i>
+            </div>
+            <h5 class="fw-bold mb-3">Call Us</h5>
+            <p class="text-muted mb-2">+254 700 123 456</p>
+            <p class="text-muted small">Monday - Friday: 8:00 AM - 6:00 PM<br>Saturday: 9:00 AM - 4:00 PM</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body text-center p-4">
+            <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+              <i class="bi bi-envelope-fill" style="font-size: 1.5rem;"></i>
+            </div>
+            <h5 class="fw-bold mb-3">Email Us</h5>
+            <p class="text-muted mb-2">info@propmanager.co.ke</p>
+            <p class="text-muted small">support@propmanager.co.ke<br>We respond within 24 hours</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Form -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-5">
+            <div class="text-center mb-4">
+              <h2 class="fw-bold mb-3">Send Us a Message</h2>
+              <p class="text-muted">Have a question or need assistance? Fill out the form below and we'll get back to you as soon as possible.</p>
+            </div>
+            <form>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="firstName" class="form-label fw-semibold">First Name</label>
+                  <input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="lastName" class="form-label fw-semibold">Last Name</label>
+                  <input type="text" class="form-control" id="lastName" placeholder="Enter your last name">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="email" class="form-label fw-semibold">Email Address</label>
+                  <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="phone" class="form-label fw-semibold">Phone Number</label>
+                  <input type="tel" class="form-control" id="phone" placeholder="+254 700 123 456">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="subject" class="form-label fw-semibold">Subject</label>
+                <select class="form-select" id="subject">
+                  <option selected>Choose a subject</option>
+                  <option value="general">General Inquiry</option>
+                  <option value="tenant">Tenant Support</option>
+                  <option value="landlord">Landlord Support</option>
+                  <option value="technical">Technical Issue</option>
+                  <option value="billing">Billing Question</option>
+                  <option value="feedback">Feedback</option>
+                </select>
+              </div>
+              <div class="mb-4">
+                <label for="message" class="form-label fw-semibold">Message</label>
+                <textarea class="form-control" id="message" rows="5" placeholder="Tell us how we can help you..."></textarea>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg px-5">
+                  <i class="bi bi-send me-2"></i>Send Message
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold mb-3">Frequently Asked Questions</h2>
+      <p class="text-muted">Quick answers to common questions</p>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faq1">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                How do I list my property on PropManager?
+              </button>
+            </h2>
+            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Simply register as a landlord, complete your profile, and use our "Add Property" feature to list your property. Our team will verify your listing within 24 hours.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faq2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                Is PropManager available in all Kenyan counties?
+              </button>
+            </h2>
+            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Currently, we're focused on major cities including Nairobi, Mombasa, Kisumu, and Nakuru. We're expanding to other counties soon!
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faq3">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                How do you verify landlords and properties?
+              </button>
+            </h2>
+            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                We conduct thorough background checks on landlords, verify property ownership documents, and physically inspect properties to ensure they meet our quality standards.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faq4">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                What payment methods do you accept?
+              </button>
+            </h2>
+            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                We accept M-Pesa, Airtel Money, bank transfers, and major credit cards. All payments are processed securely through our platform.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Map Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold mb-3">Find Us</h2>
+      <p class="text-muted">Visit our office in Nairobi</p>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-0">
+            <div class="ratio ratio-16x9">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8195!2d36.8172!3d-1.2921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMcKwMTcnMzEuNiJTIDM2wrA0OScwMi4wIkU!5e0!3m2!1sen!2ske!4v1234567890" 
+                    style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %} 

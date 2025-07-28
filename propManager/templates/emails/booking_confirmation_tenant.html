@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Booking Confirmation</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #0d6efd; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; background-color: #f8f9fa; }
+        .booking-details { background-color: white; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Booking Confirmation</h1>
+        </div>
+        <div class="content">
+            <h2>Hello {{ tenant.first_name }} {{ tenant.last_name }},</h2>
+            <p>Your booking request has been submitted successfully!</p>
+            
+            <div class="booking-details">
+                <h3>Booking Details:</h3>
+                <p><strong>Property:</strong> {{ property.title }}</p>
+                <p><strong>Location:</strong> {{ property.location }}</p>
+                <p><strong>Rent:</strong> ${{ booking.price }}/month</p>
+                <p><strong>Booking Date:</strong> {{ booking.date }}</p>
+                <p><strong>Status:</strong> <span style="color: #ffc107;">Pending</span></p>
+            </div>
+            
+            <p>The landlord will review your booking request and get back to you soon. You'll receive another email once your booking is approved or rejected.</p>
+            
+            <p>If you have any questions, please don't hesitate to contact us.</p>
+            
+            <p>Best regards,<br>The PropManager Team</p>
+        </div>
+        <div class="footer">
+            <p>This is an automated email. Please do not reply to this message.</p>
+        </div>
+    </div>
+</body>
+</html> 

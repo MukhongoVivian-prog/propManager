@@ -31,14 +31,31 @@
           <a class="nav-link active fw-semibold" aria-current="page" href="{% url 'index' %}">Home</a>
         </li>
         <li class="nav-item mx-2">
-          <a class="nav-link fw-semibold" href="#">About</a>
+          <a class="nav-link fw-semibold" href="{% url 'properties' %}">Properties</a>
         </li>
         <li class="nav-item mx-2">
-          <a class="nav-link fw-semibold" href="#">Terms</a>
+          <a class="nav-link fw-semibold" href="{% url 'about' %}">About</a>
         </li>
         <li class="nav-item mx-2">
-          <a class="nav-link fw-semibold" href="#">Contact</a>
+          <a class="nav-link fw-semibold" href="{% url 'terms' %}">Terms</a>
         </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link fw-semibold" href="{% url 'contact' %}">Contact</a>
+        </li>
+        {% if user.is_authenticated and user.is_staff %}
+        <li class="nav-item mx-2">
+          <a class="nav-link fw-semibold" href="/admin/" title="Admin Dashboard">
+            <i class="bi bi-gear-fill"></i>
+          </a>
+        </li>
+        {% endif %}
+        {% if user.is_authenticated and user.role == 'admin' %}
+        <li class="nav-item mx-2">
+          <a class="nav-link fw-semibold" href="/admin/" title="Admin Dashboard">
+            <i class="bi bi-gear-fill"></i>
+          </a>
+        </li>
+        {% endif %}
       </ul>
       <div class="d-flex ms-3">
         <a href="{% url 'login' %}" class="btn btn-outline-primary me-2">

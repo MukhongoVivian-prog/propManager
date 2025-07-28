@@ -13,71 +13,134 @@
   </div>
 </div>
 
-<!-- Hero Section -->
-<div class="position-relative hero-section" style="background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%); min-height: 600px;">
-  <div class="jumbotron-section position-relative text-white text-center">
-    <div class="jumbotron-overlay d-flex align-items-center justify-content-center">
-      <div class="container py-5">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
+<!-- Hero Carousel -->
+<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="position-relative" style="background: linear-gradient(rgba(13, 110, 253, 0.8), rgba(11, 94, 215, 0.8)), url('{% static 'assets/images/hero.jpg' %}') center/cover; min-height: 600px;">
+        <div class="container d-flex align-items-center justify-content-center" style="min-height: 600px;">
+          <div class="text-white text-center">
             <h1 class="display-4 fw-bold mb-4">
               Find Your Perfect <span class="text-warning">Rental Property</span>
             </h1>
-            <p class="lead mb-0">
+            <p class="lead mb-4">
               Discover thousands of verified properties from trusted landlords. Your dream home is just a search away.
             </p>
-          </div>
-        </div>
-        <!-- Search Form (reduced width) -->
-        <div class="row justify-content-center mt-4">
-          <div class="col-md-8 col-lg-6 mx-auto">
-            <div class="bg-white rounded-3 p-4 shadow-lg">
-              <form class="row g-3">
-                <div class="col-md-3">
-                  <div class="input-group">
-                    <span class="input-group-text bg-transparent border-end-0">
-                      <i class="bi bi-geo-alt-fill text-primary"></i>
-                    </span>
-                    <select class="form-select border-start-0" aria-label="Select location">
-                      <option selected>Select location</option>
-                      <option value="nairobi">Nairobi</option>
-                      <option value="mombasa">Mombasa</option>
-                      <option value="kisumu">Kisumu</option>
-                    </select>
-                  </div>
+            <div class="row justify-content-center">
+              <div class="col-md-8 col-lg-6">
+                <div class="bg-white rounded-3 p-4 shadow-lg">
+                  <form class="row g-3">
+                    <div class="col-md-3">
+                      <div class="input-group">
+                        <span class="input-group-text bg-transparent border-end-0">
+                          <i class="bi bi-geo-alt-fill text-primary"></i>
+                        </span>
+                        <select class="form-select border-start-0" aria-label="Select location">
+                          <option selected>Select location</option>
+                          <option value="nairobi">Nairobi</option>
+                          <option value="mombasa">Mombasa</option>
+                          <option value="kisumu">Kisumu</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="input-group">
+                        <span class="input-group-text bg-transparent border-end-0">
+                          <i class="bi bi-house-fill text-primary"></i>
+                        </span>
+                        <select class="form-select border-start-0" aria-label="Property type">
+                          <option selected>Property type</option>
+                          <option value="apartment">Apartment</option>
+                          <option value="house">House</option>
+                          <option value="studio">Studio</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <input type="number" class="form-control" placeholder="$ Min price" aria-label="Min price">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="number" class="form-control" placeholder="$ Max price" aria-label="Max price">
+                    </div>
+                    <div class="col-12 text-center mt-3">
+                      <button type="submit" class="btn btn-primary btn-lg px-5">
+                        <i class="bi bi-search me-2"></i>Search Properties
+                      </button>
+                    </div>
+                  </form>
                 </div>
-                <div class="col-md-3">
-                  <div class="input-group">
-                    <span class="input-group-text bg-transparent border-end-0">
-                      <i class="bi bi-house-fill text-primary"></i>
-                    </span>
-                    <select class="form-select border-start-0" aria-label="Property type">
-                      <option selected>Property type</option>
-                      <option value="apartment">Apartment</option>
-                      <option value="house">House</option>
-                      <option value="studio">Studio</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <input type="number" class="form-control" placeholder="$ Min price" aria-label="Min price">
-                </div>
-                <div class="col-md-3">
-                  <input type="number" class="form-control" placeholder="$ Max price" aria-label="Max price">
-                </div>
-                <div class="col-12 text-center mt-3">
-                  <button type="submit" class="btn btn-primary btn-lg px-5">
-                    <i class="bi bi-search me-2"></i>Search Properties
-                  </button>
-                </div>
-              </form>
+              </div>
+            </div>
+            <div class="mt-4">
+              <a href="{% url 'register' %}" class="btn btn-warning btn-lg me-3">
+                <i class="bi bi-house me-2"></i>Find a House (Tenant)
+              </a>
+              <a href="{% url 'register' %}" class="btn btn-light btn-lg">
+                <i class="bi bi-building me-2"></i>List Your Property (Landlord)
+              </a>
             </div>
           </div>
         </div>
-        <!-- End Search Form -->
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="position-relative" style="background: linear-gradient(rgba(13, 110, 253, 0.8), rgba(11, 94, 215, 0.8)), url('{% static 'assets/images/hero1.jpg' %}') center/cover; min-height: 600px;">
+        <div class="container d-flex align-items-center justify-content-center" style="min-height: 600px;">
+          <div class="text-white text-center">
+            <h1 class="display-4 fw-bold mb-4">
+              Luxury Properties in <span class="text-warning">Prime Locations</span>
+            </h1>
+            <p class="lead mb-4">
+              Experience the finest selection of premium rental properties with modern amenities and excellent locations.
+            </p>
+            <div class="mt-4">
+              <a href="{% url 'properties' %}" class="btn btn-warning btn-lg me-3">
+                <i class="bi bi-eye me-2"></i>View Properties
+              </a>
+              <a href="{% url 'register' %}" class="btn btn-light btn-lg">
+                <i class="bi bi-person-plus me-2"></i>Join Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="position-relative" style="background: linear-gradient(rgba(13, 110, 253, 0.8), rgba(11, 94, 215, 0.8)), url('{% static 'assets/images/hero.jpg' %}') center/cover; min-height: 600px;">
+        <div class="container d-flex align-items-center justify-content-center" style="min-height: 600px;">
+          <div class="text-white text-center">
+            <h1 class="display-4 fw-bold mb-4">
+              Trusted by <span class="text-warning">Thousands</span> of Users
+            </h1>
+            <p class="lead mb-4">
+              Join our community of satisfied tenants and landlords. Start your journey today!
+            </p>
+            <div class="mt-4">
+              <a href="{% url 'login' %}" class="btn btn-warning btn-lg me-3">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Login
+              </a>
+              <a href="{% url 'register' %}" class="btn btn-light btn-lg">
+                <i class="bi bi-person-plus me-2"></i>Sign Up
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
 
 <!-- Stats Section -->

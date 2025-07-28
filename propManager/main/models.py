@@ -94,8 +94,7 @@ class Property(TimeStampedModel):
     ('Booked', 'Booked'),
 ]
 
-
-    landlord = models.ForeignKey(User, on_delete=models.CASCADE)
+    landlord = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties', limit_choices_to={'role': 'landlord'})
     title = models.CharField(max_length=100)
     property_type = models.CharField(max_length=50, choices=PROPERTY_TYPE_CHOICES)
     description = models.TextField()
@@ -109,7 +108,6 @@ class Property(TimeStampedModel):
     security = models.BooleanField(default=False)
     elevator = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
-    landlord = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties', default=None, limit_choices_to={'role': 'landlord'})
 
     def __str__(self):
         return self.title
@@ -124,21 +122,42 @@ class Profile(models.Model):
         return f"Profile for {self.user.email}"
 
 
-class Booking(TimeStampedModel):
+class Booking(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
-        ('confirmed', 'Confirmed'),
+        ('approved', 'Approved by Landlord'),
+        ('payment_pending', 'Payment Pending'),
+        ('payment_completed', 'Payment Completed'),
+        ('reserved', 'Reserved'),
+        ('checked_in', 'Checked In'),
+        ('completed', 'Completed'),
         ('cancelled', 'Cancelled'),
     ]
-
-    tenant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookings', limit_choices_to={'role': 'tenant'})
+    
+    PAYMENT_STATUS_CHOICES = [
+        ('pending', 'Payment Pending'),
+        ('processing', 'Processing'),
+        ('completed', 'Completed'),
+        ('failed', 'Failed'),
+        ('refunded', 'Refunded'),
+    ]
+    
+    tenant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookings')
     property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='bookings')
     date = models.DateField()
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
     price = models.DecimalField(max_digits=10, decimal_places=2)
-
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    payment_status = models.CharField(max_length=20, choices=PAYMENT_STATUS_CHOICES, default='pending')
+    landlord_approved = models.BooleanField(default=False)
+    payment_date = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+    
     def __str__(self):
-        return f"{self.property.title} - {self.tenant.email}"
+        return f"{self.tenant.first_name} - {self.property.title} ({self.status})"
 
 
 # === Review Model ===

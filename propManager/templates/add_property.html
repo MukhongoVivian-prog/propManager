@@ -1,103 +1,120 @@
+{% extends 'base.html' %}
 {% block content %}
-{% include 'sidebar/landlord_sidebar.html' %}
-
-<div class="container-fluid mt-4">
-    <div class="px-3">
-      <h4 class="mb-3">Add Property</h4>
-      <p class="text-muted">Welcome back, {{ user.first_name }} {{ user.last_name }}</p>
-  
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title mb-4">Add New Property</h5>
-  
-          <form>
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="title" class="form-label">Property Title</label>
-                <input type="text" id="title" class="form-control" placeholder="Enter property title">
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-2 col-lg-2 p-0">
+      {% include 'sidebar/landlord_sidebar.html' %}
+    </div>
+    <!-- Main Content -->
+    <div class="col-md-10 col-lg-10 mt-4">
+      <div class="px-3">
+        <h2 class="fw-bold">Dashboard</h2>
+        <p class="text-muted">Welcome back, {{ user.first_name }} {{ user.last_name }}</p>
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title mb-4">Add New Property</h5>
+            <form method="post" enctype="multipart/form-data" id="propertyForm">
+              {% csrf_token %}
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  {{ form.title.label_tag }}
+                  {{ form.title }}
+                </div>
+                <div class="col-md-6">
+                  {{ form.property_type.label_tag }}
+                  {{ form.property_type }}
+                </div>
               </div>
-              <div class="col-md-6">
-                <label for="type" class="form-label">Property Type</label>
-                <select class="form-select" id="type">
-                  <option selected disabled>Select type</option>
-                  <option>Apartment</option>
-                  <option>Condo</option>
-                  <option>Bedsitter</option>
-                </select>
+              <div class="mb-3">
+                {{ form.description.label_tag }}
+                {{ form.description }}
               </div>
-            </div>
-  
-            <div class="mb-3">
-              <label for="description" class="form-label">Description</label>
-              <textarea id="description" class="form-control" rows="3" placeholder="Describe your property"></textarea>
-            </div>
-  
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="location" class="form-label">Location</label>
-                <input type="text" id="location" class="form-control" placeholder="Property location">
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  {{ form.location.label_tag }}
+                  {{ form.location }}
+                </div>
+                <div class="col-md-6">
+                  {{ form.monthly_rent.label_tag }}
+                  {{ form.monthly_rent }}
+                </div>
               </div>
-              <div class="col-md-6">
-                <label for="rent" class="form-label">Monthly Rent</label>
-                <input type="text" id="rent" class="form-control" placeholder="Enter rent amount">
-              </div>
-            </div>
-  
-            <div class="mb-3">
-              <label class="form-label">Amenities</label>
-              <div class="row">
-                <div class="col-md-2 col-6">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="wifi" checked>
-                    <label class="form-check-label" for="wifi">WiFi</label>
+              <div class="mb-3">
+                <label class="form-label">Amenities</label>
+                <div class="row">
+                  <div class="col-md-2 col-6">
+                    <div class="form-check">
+                      {{ form.wifi }}
+                      <label class="form-check-label" for="{{ form.wifi.id_for_label }}">WiFi</label>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-2 col-6">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="parking" checked>
-                    <label class="form-check-label" for="parking">Parking</label>
+                  <div class="col-md-2 col-6">
+                    <div class="form-check">
+                      {{ form.parking }}
+                      <label class="form-check-label" for="{{ form.parking.id_for_label }}">Parking</label>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-2 col-6">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gym">
-                    <label class="form-check-label" for="gym">Gym</label>
+                  <div class="col-md-2 col-6">
+                    <div class="form-check">
+                      {{ form.gym }}
+                      <label class="form-check-label" for="{{ form.gym.id_for_label }}">Gym</label>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-2 col-6">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="pool">
-                    <label class="form-check-label" for="pool">Pool</label>
+                  <div class="col-md-2 col-6">
+                    <div class="form-check">
+                      {{ form.pool }}
+                      <label class="form-check-label" for="{{ form.pool.id_for_label }}">Pool</label>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-2 col-6">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="security">
-                    <label class="form-check-label" for="security">Security</label>
+                  <div class="col-md-2 col-6">
+                    <div class="form-check">
+                      {{ form.security }}
+                      <label class="form-check-label" for="{{ form.security.id_for_label }}">Security</label>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-2 col-6">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="elevator">
-                    <label class="form-check-label" for="elevator">Elevator</label>
+                  <div class="col-md-2 col-6">
+                    <div class="form-check">
+                      {{ form.elevator }}
+                      <label class="form-check-label" for="{{ form.elevator.id_for_label }}">Elevator</label>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-  
-            <div class="mb-4">
-              <label class="form-label">Property Images</label>
-              <div class="border border-dashed rounded-3 p-5 text-center bg-light" style="cursor: pointer;">
-                <i class="bi bi-upload fs-1 text-muted"></i>
-                <p class="text-muted mt-2 mb-0">Click or drag files to upload</p>
+              <div class="mb-4">
+                <label class="form-label">Property Images</label>
+                <input type="file" name="images" id="imageInput" class="form-control" accept="image/*" multiple>
+                <div class="form-text">You can select multiple images by holding Ctrl (or Cmd on Mac) while clicking</div>
+                <div id="imagePreview" class="mt-2"></div>
               </div>
-            </div>
-  
-            <button type="submit" class="btn btn-primary">Add Property</button>
-          </form>
+              <button type="submit" class="btn btn-primary">Add Property</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<script>
+document.getElementById('imageInput').addEventListener('change', function(e) {
+  const preview = document.getElementById('imagePreview');
+  preview.innerHTML = '';
   
+  for (let file of e.target.files) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.style.width = '100px';
+      img.style.height = '100px';
+      img.style.objectFit = 'cover';
+      img.style.margin = '5px';
+      img.style.borderRadius = '5px';
+      preview.appendChild(img);
+    }
+    reader.readAsDataURL(file);
+  }
+});
+</script>
 {% endblock %}

@@ -1,39 +1,100 @@
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-white border-end min-vh-100" style="width: 240px;">
-  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-primary text-decoration-none">
-    <i class="bi bi-house-fill me-2" style="font-size: 1.5rem;"></i>
-    <span class="fs-4 fw-bold">PropManager</span>
-  </a>
-  <hr>
-  <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item">
-      <a href="{% url 'tenant_dashboard' %}" class="nav-link {% if active_page == 'browse' %}active{% endif %}">
-        <i class="bi bi-search me-2"></i> Browse Properties
+{% extends 'base.html' %}
+{% block content %}
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h3><i class="bi bi-house-fill text-primary me-2"></i>PropManager</h3>
+  </div>
+  <ul class="sidebar-nav">
+    <li class="{% if active_page == 'browse' %}active{% endif %}">
+      <a href="{% url 'tenant_dashboard' %}">
+        <i class="bi bi-search me-2"></i>Browse Properties
+      </a>
+    </li>
+    <li class="{% if active_page == 'bookings' %}active{% endif %}">
+      <a href="{% url 'tenant_bookings' %}">
+        <i class="bi bi-calendar-check me-2"></i>My Bookings
+        {% if user.bookings.all %}
+          {% with latest_booking=user.bookings.all|first %}
+            {% if latest_booking.status == 'pending' %}
+              <span class="badge bg-warning text-dark ms-auto">New</span>
+            {% elif latest_booking.status == 'reserved' %}
+              <span class="badge bg-info ms-auto">Ready</span>
+            {% elif latest_booking.status == 'checked_in' %}
+              <span class="badge bg-success ms-auto">Active</span>
+            {% endif %}
+          {% endwith %}
+        {% endif %}
+      </a>
+    </li>
+    <li class="{% if active_page == 'reviews' %}active{% endif %}">
+      <a href="{% url 'tenant_reviews' %}">
+        <i class="bi bi-star me-2"></i>Reviews
+      </a>
+    </li>
+    <li class="{% if active_page == 'favorites' %}active{% endif %}">
+      <a href="{% url 'tenant_favorites' %}">
+        <i class="bi bi-heart me-2"></i>Favorites
+      </a>
+    </li>
+    <li class="{% if active_page == 'settings' %}active{% endif %}">
+      <a href="{% url 'tenant_settings' %}">
+        <i class="bi bi-gear me-2"></i>Settings
       </a>
     </li>
     <li>
-      <a href="{% url 'tenant_bookings' %}" class="nav-link {% if active_page == 'bookings' %}active{% endif %}">
-        <i class="bi bi-calendar-check me-2"></i> My Bookings
-      </a>
-    </li>
-    <li>
-      <a href="{% url 'tenant_reviews' %}" class="nav-link {% if active_page == 'reviews' %}active{% endif %}">
-        <i class="bi bi-star me-2"></i> Reviews
-      </a>
-    </li>
-    <li>
-      <a href="{% url 'tenant_favorites' %}" class="nav-link {% if active_page == 'favorites' %}active{% endif %}">
-        <i class="bi bi-heart me-2"></i> Favorites
-      </a>
-    </li>
-    <li>
-      <a href="{% url 'tenant_settings' %}" class="nav-link {% if active_page == 'settings' %}active{% endif %}">
-        <i class="bi bi-gear me-2"></i> Settings
-      </a>
-    </li>
-    <li class="mt-3">
-      <a href="{% url 'logout' %}" class="nav-link text-danger">
-        <i class="bi bi-box-arrow-right me-2"></i> Logout
+      <a href="{% url 'logout' %}">
+        <i class="bi bi-box-arrow-right me-2"></i>Logout
       </a>
     </li>
   </ul>
-</div> 
+</div>
+
+<style>
+.sidebar {
+  background: #f8f9fa;
+  height: 100vh;
+  padding: 20px 0;
+  border-right: 1px solid #dee2e6;
+}
+
+.sidebar-header {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 20px;
+}
+
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav li {
+  margin: 0;
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: #495057;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.sidebar-nav a:hover {
+  background: #e9ecef;
+  color: #007bff;
+}
+
+.sidebar-nav li.active a {
+  background: #007bff;
+  color: white;
+}
+
+.sidebar-nav .badge {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.5rem;
+}
+</style>
+{% endblock %} 
