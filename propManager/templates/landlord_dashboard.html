@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 col-lg-2 p-0">
+      {% include 'sidebar/landlord_sidebar.html' %}
+    </div>
+    <!-- Main Content -->
+    <div class="container-fluid mt-4">
+        <div class="px-3">
+          <h2>Dashboard</h2>
+          <p class="text-muted">Welcome back, {{ user.first_name }} {{ user.last_name }}</p>
+      
+          <!-- Summary Cards -->
+          <div class="row mb-4">
+            <div class="col-md-3">
+              <div class="card shadow-sm text-center">
+                <div class="card-body">
+                  <h6 class="card-title text-muted">Total Properties</h6>
+                  <h3>12</h3>
+                  <i class="bi bi-house-door fs-4"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card shadow-sm text-center">
+                <div class="card-body">
+                  <h6 class="card-title text-muted">Monthly Revenue</h6>
+                  <h3>$14,400</h3>
+                  <i class="bi bi-currency-dollar fs-4 text-success"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card shadow-sm text-center">
+                <div class="card-body">
+                  <h6 class="card-title text-muted">Active Tenants</h6>
+                  <h3>8</h3>
+                  <i class="bi bi-people-fill fs-4 text-warning"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card shadow-sm text-center">
+                <div class="card-body">
+                  <h6 class="card-title text-muted">Occupancy Rate</h6>
+                  <h3>67%</h3>
+                  <i class="bi bi-graph-up-arrow fs-4 text-primary"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Properties Table -->
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title mb-3">My Properties</h5>
+              <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th>Property</th>
+                      <th>Type</th>
+                      <th>Status</th>
+                      <th>Price</th>
+                      <th>Bookings</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Downtown Apartment</td>
+                      <td>Apartment</td>
+                      <td><span class="badge bg-success">Available</span></td>
+                      <td>$1200/month</td>
+                      <td>3</td>
+                      <td>
+                        <button class="btn btn-sm btn-light"><i class="bi bi-eye"></i></button>
+                        <button class="btn btn-sm btn-light"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn btn-sm btn-light text-danger"><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Luxury Bedsitter</td>
+                      <td>Bedsitter</td>
+                      <td><span class="badge bg-primary">Booked</span></td>
+                      <td>$800/month</td>
+                      <td>1</td>
+                      <td>
+                        <button class="btn btn-sm btn-light"><i class="bi bi-eye"></i></button>
+                        <button class="btn btn-sm btn-light"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn btn-sm btn-light text-danger"><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Urban Condo</td>
+                      <td>Condo</td>
+                      <td><span class="badge bg-success">Available</span></td>
+                      <td>$1500/month</td>
+                      <td>5</td>
+                      <td>
+                        <button class="btn btn-sm btn-light"><i class="bi bi-eye"></i></button>
+                        <button class="btn btn-sm btn-light"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn btn-sm btn-light text-danger"><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}      

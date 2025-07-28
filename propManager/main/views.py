@@ -1,15 +1,18 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import Property, Booking, Review, Favorite, Profile, PropertyImage, TenantInteraction
+from django.db.models import Sum
+from django.shortcuts import get_object_or_404  
 from django.contrib.auth import authenticate, login, logout
-from .models import Property, Booking, Review, Favorite, TenantProfile, User
 from django.views.decorators.csrf import csrf_protect
+from django.db import IntegrityError
+from .models import User
+from .forms import PropertyForm
 
-
+# Create your views here.
 def index(request):
     return render(request, 'index.html')
-
-
 @csrf_protect
 def register_view(request):
     if request.method == 'POST':
@@ -44,20 +47,16 @@ def register_view(request):
         user.save()
 
         if role == 'tenant':
-            TenantProfile.objects.create(user=user, phone=phone)
+            Profile.objects.create(user=user, phone=phone)
+        elif role == 'landlord':
+            Profile.objects.create(user=user, phone=phone)
 
         messages.success(request, "Account created. You can now log in.")
         return redirect('login')
 
     return render(request, 'register.html')
 
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from django.views.decorators.csrf import csrf_protect
-from django.contrib.auth.decorators import login_required
-
-@csrf_protect
+    
 def login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -90,22 +89,8 @@ def login_view(request):
         return redirect('login')
 
     return render(request, 'login.html')
-
-
-@login_required
-def logout_view(request):
-    logout(request)
-    messages.success(request, "You have been logged out.")
-    return redirect('login')
-
-
-# === Tenant Views ===
 @login_required
 def tenant_dashboard(request):
-    if request.user.role != 'tenant':
-        messages.error(request, "Access denied.")
-        return redirect('login')
-
     properties = Property.objects.all()
     context = {
         'user': request.user,
@@ -114,72 +99,112 @@ def tenant_dashboard(request):
     }
     return render(request, 'tenant_dashboard.html', context)
 
-
 @login_required
 def tenant_bookings(request):
-    if request.user.role != 'tenant':
-        messages.error(request, "Access denied.")
-        return redirect('login')
-
     bookings = Booking.objects.filter(tenant=request.user).order_by('-date')
     context = {
+        'user': request.user,
         'bookings': bookings,
         'active_page': 'bookings',
     }
     return render(request, 'tenant_bookings.html', context)
 
-
 @login_required
 def tenant_reviews(request):
-    if request.user.role != 'tenant':
-        messages.error(request, "Access denied.")
-        return redirect('login')
-
     reviews = Review.objects.filter(tenant=request.user).order_by('-created_at')
     context = {
+        'user': request.user,
         'reviews': reviews,
         'active_page': 'reviews',
     }
     return render(request, 'tenant_reviews.html', context)
 
-
 @login_required
 def tenant_favorites(request):
-    if request.user.role != 'tenant':
-        messages.error(request, "Access denied.")
-        return redirect('login')
-
     favorites = Favorite.objects.filter(tenant=request.user).select_related('property').order_by('-created_at')
     context = {
+        'user': request.user,
         'favorites': favorites,
         'active_page': 'favorites',
     }
     return render(request, 'tenant_favorites.html', context)
 
-
 @login_required
 def tenant_settings(request):
-    if request.user.role != 'tenant':
-        messages.error(request, "Access denied.")
-        return redirect('login')
-
     user = request.user
-    profile, _ = TenantProfile.objects.get_or_create(user=user)
-
+    profile, created = Profile.objects.get_or_create(user=user)
     if request.method == 'POST':
         user.first_name = request.POST.get('first_name', user.first_name)
         user.last_name = request.POST.get('last_name', user.last_name)
         user.email = request.POST.get('email', user.email)
         profile.phone = request.POST.get('phone', profile.phone)
-
         user.save()
         profile.save()
         messages.success(request, 'Profile updated successfully!')
         return redirect('tenant_settings')
-
     context = {
         'user': user,
         'profile': profile,
         'active_page': 'settings',
     }
     return render(request, 'tenant_settings.html', context)
+
+# landlord views
+
+@login_required
+def landlord_dashboard(request):
+    properties = Property.objects.filter(landlord=request.user)
+    total_properties = properties.count()
+    monthly_revenue = properties.aggregate(total=Sum('monthly_rent'))['total'] or 0
+    active_tenants = TenantInteraction.objects.filter(property__in=properties, status='Booked').count()
+    occupancy_rate = int((active_tenants / total_properties) * 100) if total_properties else 0
+
+    context = {
+        'total_properties': total_properties,
+        'monthly_revenue': monthly_revenue,
+        'active_tenants': active_tenants,
+        'occupancy_rate': occupancy_rate,
+        'properties': properties,
+    }
+    return render(request, 'landlord_dashboard.html', context)
+
+
+@login_required
+def tenant_interactions(request):
+    properties = Property.objects.filter(landlord=request.user)
+    interactions = TenantInteraction.objects.filter(property__in=properties)
+
+    return render(request, 'view_tenants.html', {
+        'interactions': interactions
+    })
+
+
+@login_required
+def add_property(request):
+    if request.method == 'POST':
+        form = PropertyForm(request.POST, request.FILES)
+        if form.is_valid():
+            property = form.save(commit=False)
+            property.landlord = request.user
+            property.save()
+            # Save multiple images if supported
+            for file in request.FILES.getlist('images'):
+                PropertyImage.objects.create(property=property, image=file)
+            return redirect('dashboard')
+    else:
+        form = PropertyForm()
+    return render(request, 'add_property.html', {'form': form})
+
+
+@login_required
+def view_property(request, property_id):
+    property = get_object_or_404(Property, id=property_id, landlord=request.user)
+    return render(request, 'property_details.html', {'property': property})
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, "You have been logged out.")
+    return redirect('login')  # Or redirect to 'index' if preferred\
+
+def sidebar():
+    return render(request, 'landlord_siebar.html')

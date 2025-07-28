@@ -1,0 +1,103 @@
+{% block content %}
+{% include 'sidebar/landlord_sidebar.html' %}
+
+<div class="container-fluid mt-4">
+    <div class="px-3">
+      <h4 class="mb-3">Add Property</h4>
+      <p class="text-muted">Welcome back, {{ user.first_name }} {{ user.last_name }}</p>
+  
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-4">Add New Property</h5>
+  
+          <form>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="title" class="form-label">Property Title</label>
+                <input type="text" id="title" class="form-control" placeholder="Enter property title">
+              </div>
+              <div class="col-md-6">
+                <label for="type" class="form-label">Property Type</label>
+                <select class="form-select" id="type">
+                  <option selected disabled>Select type</option>
+                  <option>Apartment</option>
+                  <option>Condo</option>
+                  <option>Bedsitter</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea id="description" class="form-control" rows="3" placeholder="Describe your property"></textarea>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" id="location" class="form-control" placeholder="Property location">
+              </div>
+              <div class="col-md-6">
+                <label for="rent" class="form-label">Monthly Rent</label>
+                <input type="text" id="rent" class="form-control" placeholder="Enter rent amount">
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <label class="form-label">Amenities</label>
+              <div class="row">
+                <div class="col-md-2 col-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="wifi" checked>
+                    <label class="form-check-label" for="wifi">WiFi</label>
+                  </div>
+                </div>
+                <div class="col-md-2 col-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="parking" checked>
+                    <label class="form-check-label" for="parking">Parking</label>
+                  </div>
+                </div>
+                <div class="col-md-2 col-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gym">
+                    <label class="form-check-label" for="gym">Gym</label>
+                  </div>
+                </div>
+                <div class="col-md-2 col-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="pool">
+                    <label class="form-check-label" for="pool">Pool</label>
+                  </div>
+                </div>
+                <div class="col-md-2 col-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="security">
+                    <label class="form-check-label" for="security">Security</label>
+                  </div>
+                </div>
+                <div class="col-md-2 col-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="elevator">
+                    <label class="form-check-label" for="elevator">Elevator</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="mb-4">
+              <label class="form-label">Property Images</label>
+              <div class="border border-dashed rounded-3 p-5 text-center bg-light" style="cursor: pointer;">
+                <i class="bi bi-upload fs-1 text-muted"></i>
+                <p class="text-muted mt-2 mb-0">Click or drag files to upload</p>
+              </div>
+            </div>
+  
+            <button type="submit" class="btn btn-primary">Add Property</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}

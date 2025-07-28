@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+# Create your models here.
 
 # === Abstract Timestamp Model ===
 class TimeStampedModel(models.Model):
@@ -55,7 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    # ✅ Avoid reverse accessor clashes
+    #Avoid reverse accessor clashes
     groups = models.ManyToManyField(
         'auth.Group',
         related_name='custom_user_groups',
@@ -88,15 +89,25 @@ class Property(TimeStampedModel):
         ('bedsitter', 'Bedsitter'),
         ('studio', 'Studio'),
     ]
+    PROPERTY_STATUS_CHOICES = [
+    ('Available', 'Available'),
+    ('Booked', 'Booked'),
+]
 
-    title = models.CharField(max_length=200)
+
+    landlord = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    property_type = models.CharField(max_length=50, choices=PROPERTY_TYPE_CHOICES)
     description = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
     location = models.CharField(max_length=100)
-    property_type = models.CharField(max_length=20, choices=PROPERTY_TYPE_CHOICES)
-    bedrooms = models.PositiveIntegerField()
-    bathrooms = models.PositiveIntegerField()
-    image = models.URLField(blank=True)
+    monthly_rent = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, choices=PROPERTY_STATUS_CHOICES, default='Available')
+    wifi = models.BooleanField(default=False)
+    parking = models.BooleanField(default=False)
+    gym = models.BooleanField(default=False)
+    pool = models.BooleanField(default=False)
+    security = models.BooleanField(default=False)
+    elevator = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
     landlord = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties', default=None, limit_choices_to={'role': 'landlord'})
 
@@ -105,7 +116,7 @@ class Property(TimeStampedModel):
 
 
 # === Tenant Profile ===
-class TenantProfile(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='tenant_profile')
     phone = models.CharField(max_length=20, blank=True)
 
@@ -113,7 +124,6 @@ class TenantProfile(models.Model):
         return f"Profile for {self.user.email}"
 
 
-# === Booking Model ===
 class Booking(TimeStampedModel):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
@@ -152,3 +162,42 @@ class Favorite(TimeStampedModel):
 
     def __str__(self):
         return f"{self.tenant.email} likes {self.property.title}"
+
+
+# model to handle the landlord features
+
+PROPERTY_TYPE_CHOICES = [
+    ('Apartment', 'Apartment'),
+    ('Bedsitter', 'Bedsitter'),
+    ('Condo', 'Condo'),
+]
+
+PROPERTY_STATUS_CHOICES = [
+    ('Available', 'Available'),
+    ('Booked', 'Booked'),
+]
+
+TENANT_STATUS_CHOICES = [
+    ('Interested', 'Interested'),
+    ('Booked', 'Booked'),
+]
+
+
+
+class PropertyImage(models.Model):
+    property = models.ForeignKey(Property, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='property_images/')
+
+
+class TenantInteraction(models.Model):
+    tenant_name = models.CharField(max_length=100)
+    tenant_email = models.EmailField()
+    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    view_date = models.DateField()
+    status = models.CharField(max_length=20, choices=TENANT_STATUS_CHOICES)
+
+    def __str__(self):
+        return f"{self.tenant_name} - {self.property.title}"
+
+
+
