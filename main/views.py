@@ -11,6 +11,8 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import logout
+from django.contrib.auth.models import User 
+from .models import Property, Booking, Review, Favorite, TenantProfile, User
 import json
 # import requests
 from django.urls import path
@@ -41,34 +43,50 @@ def register_view(request):
         password = request.POST.get('password')
         confirm = request.POST.get('confirmPassword')
 
-        if not all([role, first_name, last_name, email, password, confirm]):
+        # 1. Comprehensive validation at the start
+        if not all([role, first_name, last_name, email, phone, password, confirm]):
             messages.error(request, "All fields are required.")
-            return redirect('register')
+            return render(request, 'register.html') # Stay on the same page to show errors
 
         if password != confirm:
             messages.error(request, "Passwords do not match.")
-            return redirect('register')
+            return render(request, 'register.html')
 
+        # Ensure email is unique using your custom User model
         if User.objects.filter(email=email).exists():
             messages.error(request, "Email already registered.")
-            return redirect('register')
+            return render(request, 'register.html')
 
-        user = User.objects.create_user(
-            email=email,
-            first_name=first_name,
-            last_name=last_name,
-            password=password,
-            role=role
-        )
-        user.phone = phone
-        user.save()
+        try:
+            # 2. Correctly call create_user for your custom User model
+            # Assuming your custom User model's UserManager.create_user expects:
+            # create_user(self, email, first_name, last_name, password=None, role=None, phone=None)
+            user = User.objects.create_user(
+                email=email,
+                password=password,
+                first_name=first_name,
+                last_name=last_name,
+                role=role,
+                # phone=phone # Pass phone directly if it's a field on your custom User model
+            )
+            
+            # 3. Conditionally create TenantProfile only if needed
+            if role == 'tenant':
+                # Ensure TenantProfile model is correctly defined and imported
+                TenantProfile.objects.create(user=user)
+            # 4. Single success message and redirection for all successful registrations
+            messages.success(request, "Account created successfully! You can now log in.")
+            return redirect('login')
 
-        if role == 'tenant':
-            TenantProfile.objects.create(user=user, phone=phone)
+        except Exception as e:
+            # Catch any unexpected errors during user creation or profile creation
+            messages.error(request, f"An error occurred during registration: {e}")
+            # Log the full traceback for debugging in your server logs
+            import traceback
+            traceback.print_exc() 
+            return render(request, 'register.html')
 
-        messages.success(request, "Account created. You can now log in.")
-        return redirect('login')
-
+    # For GET requests, just render the empty registration form
     return render(request, 'register.html')
 
 
