@@ -22,7 +22,7 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <div class="position-relative" style="background: linear-gradient(rgba(13, 110, 253, 0.8), rgba(11, 94, 215, 0.8)), url('{% static 'assets/images/hero.jpg' %}') center/cover; min-height: 600px;">
+      <div class="position-relative" style="background: url('{% static 'assets/images/hero3.jpg' %}') center/cover; min-height: 600px;">
         <div class="container d-flex align-items-center justify-content-center" style="min-height: 600px;">
           <div class="text-white text-center">
             <h1 class="display-4 fw-bold mb-4">
@@ -31,51 +31,6 @@
             <p class="lead mb-4">
               Discover thousands of verified properties from trusted landlords. Your dream home is just a search away.
             </p>
-            <div class="row justify-content-center">
-              <div class="col-md-8 col-lg-6">
-                <div class="bg-white rounded-3 p-4 shadow-lg">
-                  <form class="row g-3">
-                    <div class="col-md-3">
-                      <div class="input-group">
-                        <span class="input-group-text bg-transparent border-end-0">
-                          <i class="bi bi-geo-alt-fill text-primary"></i>
-                        </span>
-                        <select class="form-select border-start-0" aria-label="Select location">
-                          <option selected>Select location</option>
-                          <option value="nairobi">Nairobi</option>
-                          <option value="mombasa">Mombasa</option>
-                          <option value="kisumu">Kisumu</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="input-group">
-                        <span class="input-group-text bg-transparent border-end-0">
-                          <i class="bi bi-house-fill text-primary"></i>
-                        </span>
-                        <select class="form-select border-start-0" aria-label="Property type">
-                          <option selected>Property type</option>
-                          <option value="apartment">Apartment</option>
-                          <option value="house">House</option>
-                          <option value="studio">Studio</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <input type="number" class="form-control" placeholder="$ Min price" aria-label="Min price">
-                    </div>
-                    <div class="col-md-3">
-                      <input type="number" class="form-control" placeholder="$ Max price" aria-label="Max price">
-                    </div>
-                    <div class="col-12 text-center mt-3">
-                      <button type="submit" class="btn btn-primary btn-lg px-5">
-                        <i class="bi bi-search me-2"></i>Search Properties
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
             <div class="mt-4">
               <a href="{% url 'register' %}" class="btn btn-warning btn-lg me-3">
                 <i class="bi bi-house me-2"></i>Find a House (Tenant)
@@ -89,7 +44,7 @@
       </div>
     </div>
     <div class="carousel-item">
-      <div class="position-relative" style="background: linear-gradient(rgba(13, 110, 253, 0.8), rgba(11, 94, 215, 0.8)), url('{% static 'assets/images/hero1.jpg' %}') center/cover; min-height: 600px;">
+      <div class="position-relative" style="background: url('{% static 'assets/images/gatranro-9877452.jpg' %}') center/cover; min-height: 600px;">
         <div class="container d-flex align-items-center justify-content-center" style="min-height: 600px;">
           <div class="text-white text-center">
             <h1 class="display-4 fw-bold mb-4">
@@ -111,7 +66,7 @@
       </div>
     </div>
     <div class="carousel-item">
-      <div class="position-relative" style="background: linear-gradient(rgba(13, 110, 253, 0.8), rgba(11, 94, 215, 0.8)), url('{% static 'assets/images/hero.jpg' %}') center/cover; min-height: 600px;">
+      <div class="position-relative" style="background: url('{% static 'assets/images/nice.jpg' %}') center/cover; min-height: 600px;">
         <div class="container d-flex align-items-center justify-content-center" style="min-height: 600px;">
           <div class="text-white text-center">
             <h1 class="display-4 fw-bold mb-4">
@@ -185,7 +140,7 @@
   <div class="row g-4">
     <div class="col-md-4">
       <div class="card h-100 shadow-sm">
-        <img src="{% static 'assets/images/hero.jpg' %}" class="card-img-top" alt="Modern Downtown Apartment" style="height: 200px; object-fit: cover;">
+        <img src="{% static 'assets/images/hero3.jpg' %}" class="card-img-top" alt="Modern Downtown Apartment" style="height: 200px; object-fit: cover;">
         <div class="card-body">
           <span class="badge bg-primary mb-2">Apartment</span>
           <span class="badge bg-light text-primary float-end">$1,200/month</span>
@@ -199,13 +154,13 @@
             <span class="me-3"><i class="bi bi-badge-wc"></i> 2 Bathrooms</span>
             <span><i class="bi bi-car-front"></i> Parking</span>
           </div>
-          <a href="#" class="btn btn-outline-primary w-100">View Details</a>
+          <a href="{% url 'properties' %}" class="btn btn-outline-primary w-100">View Details</a>
         </div>
       </div>
     </div>
     <div class="col-md-4">
       <div class="card h-100 shadow-sm">
-        <img src="{% static 'assets/images/hero1.jpg' %}" class="card-img-top" alt="Luxury Bedsitter Studio" style="height: 200px; object-fit: cover;">
+        <img src="{% static 'assets/images/gatranro-9877452.jpg' %}" class="card-img-top" alt="Luxury Bedsitter Studio" style="height: 200px; object-fit: cover;">
         <div class="card-body">
           <span class="badge bg-secondary mb-2">Bedsitter</span>
           <span class="badge bg-light text-primary float-end">$800/month</span>
@@ -218,13 +173,13 @@
             <span class="me-3"><i class="bi bi-door-closed"></i> 1 Bedroom</span>
             <span class="me-3"><i class="bi bi-badge-wc"></i> 1 Bathroom</span>
           </div>
-          <a href="#" class="btn btn-outline-primary w-100">View Details</a>
+          <a href="{% url 'properties' %}" class="btn btn-outline-primary w-100">View Details</a>
         </div>
       </div>
     </div>
     <div class="col-md-4">
       <div class="card h-100 shadow-sm">
-        <img src="{% static 'assets/images/hero.jpg' %}" class="card-img-top" alt="Contemporary Urban Living" style="height: 200px; object-fit: cover;">
+        <img src="{% static 'assets/images/nice.jpg' %}" class="card-img-top" alt="Contemporary Urban Living" style="height: 200px; object-fit: cover;">
         <div class="card-body">
           <span class="badge bg-primary mb-2">Apartment</span>
           <span class="badge bg-light text-primary float-end">$1,500/month</span>
@@ -238,13 +193,13 @@
             <span class="me-3"><i class="bi bi-badge-wc"></i> 2 Bathrooms</span>
             <span><i class="bi bi-car-front"></i> Parking</span>
           </div>
-          <a href="#" class="btn btn-outline-primary w-100">View Details</a>
+          <a href="{% url 'properties' %}" class="btn btn-outline-primary w-100">View Details</a>
         </div>
       </div>
     </div>
   </div>
   <div class="text-center mt-4">
-    <a href="#" class="btn btn-outline-primary">View All Properties</a>
+    <a href="{% url 'properties' %}" class="btn btn-outline-primary">View All Properties</a>
   </div>
 </div>
 

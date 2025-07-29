@@ -262,7 +262,7 @@ def add_property(request):
             for file in request.FILES.getlist('images'):
                 PropertyImage.objects.create(property=property, image=file)
             messages.success(request, f'Property "{property.title}" has been added successfully!')
-            return redirect('landlord_dashboard')
+            return redirect('landlord_dashboard', pk=property.pks)
     else:
         form = PropertyForm()
     return render(request, 'add_property.html', {'form': form, 'active_page': 'add_property', 'user': request.user})
