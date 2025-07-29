@@ -45,8 +45,46 @@
                     {{ form.date.label_tag }}
                     {{ form.date }}
                   </div>
-                  <button type="submit" class="btn btn-primary">Book Now</button>
+                  <button type="submit" name="submit_booking" class="btn btn-primary">Book Now</button>
                 </form>
+              {% endif %}
+              <hr>
+              <h5>Reviews</h5>
+              {% if review_success %}
+                <div class="alert alert-success">Your review has been submitted!</div>
+              {% endif %}
+              {% if can_review %}
+                <form method="post" class="mb-4">
+                  {% csrf_token %}
+                  {{ review_form.non_field_errors }}
+                  <div class="mb-2">
+                    {{ review_form.rating.label_tag }}
+                    {{ review_form.rating }}
+                  </div>
+                  <div class="mb-2">
+                    {{ review_form.comment.label_tag }}
+                    {{ review_form.comment }}
+                  </div>
+                  <button type="submit" name="submit_review" class="btn btn-success">Submit Review</button>
+                </form>
+              {% elif user.is_authenticated %}
+                <div class="alert alert-info">You must book this property before leaving a review.</div>
+              {% endif %}
+              {% if reviews %}
+                <ul class="list-group">
+                  {% for review in reviews %}
+                    <li class="list-group-item">
+                      <strong>{{ review.tenant.first_name }}:</strong>
+                      <span class="text-warning">{% for i in "12345"|slice:":review.rating" %}★{% endfor %}{% for i in "12345"|slice:"review.rating:" %}☆{% endfor %}</span>
+                      <br>
+                      {{ review.comment }}
+                      <br>
+                      <small class="text-muted">{{ review.created|date:"F j, Y, g:i a" }}</small>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p>No reviews yet for this property.</p>
               {% endif %}
             </div>
           </div>

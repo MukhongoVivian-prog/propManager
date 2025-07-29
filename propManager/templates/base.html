@@ -1,115 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>PropManager
-
-    </title>
-    {% load static %}
-    <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Bootstrap Icons -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PropManager</title>
+  {% load static %}
+  <!-- Bootstrap CSS & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-  <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="#">
-      <i class="bi bi-house-fill text-primary me-2" style="font-size: 1.5rem;"></i>
-      <span class="fw-bold text-primary">PropManager</span>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-end">
-        <li class="nav-item mx-2">
-          <a class="nav-link active fw-semibold" aria-current="page" href="{% url 'index' %}">Home</a>
-        </li>
-        <li class="nav-item mx-2">
-          <a class="nav-link fw-semibold" href="{% url 'properties' %}">Properties</a>
-        </li>
-        <li class="nav-item mx-2">
-          <a class="nav-link fw-semibold" href="{% url 'about' %}">About</a>
-        </li>
-        <li class="nav-item mx-2">
-          <a class="nav-link fw-semibold" href="{% url 'terms' %}">Terms</a>
-        </li>
-        <li class="nav-item mx-2">
-          <a class="nav-link fw-semibold" href="{% url 'contact' %}">Contact</a>
-        </li>
-        {% if user.is_authenticated and user.is_staff %}
-        <li class="nav-item mx-2">
-          <a class="nav-link fw-semibold" href="/admin/" title="Admin Dashboard">
-            <i class="bi bi-gear-fill"></i>
-          </a>
-        </li>
-        {% endif %}
-        {% if user.is_authenticated and user.role == 'admin' %}
-        <li class="nav-item mx-2">
-          <a class="nav-link fw-semibold" href="/admin/" title="Admin Dashboard">
-            <i class="bi bi-gear-fill"></i>
-          </a>
-        </li>
-        {% endif %}
-      </ul>
-      <div class="d-flex ms-3">
-        <a href="{% url 'login' %}" class="btn btn-outline-primary me-2">
-          <i class="bi bi-arrow-right me-1"></i>Login
-        </a>
-        <a href="{% url 'register' %}" class="btn btn-primary">
-          <i class="bi bi-plus me-1"></i>Register
-        </a>
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-3">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="{% url 'index' %}">PropManager</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          {% url 'index' as url_home %}
+          {% url 'properties' as url_props %}
+          {% url 'about' as url_about %}
+          {% url 'terms' as url_terms %}
+          {% url 'contact' as url_contact %}
+          <li class="nav-item mx-2">
+            <a class="nav-link {% if request.path == url_home %}active{% endif %}" href="{{ url_home }}">Home</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link {% if request.path == url_props %}active{% endif %}" href="{{ url_props }}">Properties</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link {% if request.path == url_about %}active{% endif %}" href="{{ url_about }}">About</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link {% if request.path == url_terms %}active{% endif %}" href="{{ url_terms }}">Terms</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link {% if request.path == url_contact %}active{% endif %}" href="{{ url_contact }}">Contact</a>
+          </li>
+          <!-- Always show Landlord, Tenant, Admin options -->
+          <li class="nav-item mx-2">
+            {% if user.is_authenticated and user.role == "landlord" %}
+              <a class="nav-link {% if request.path == url_landlord %}active{% endif %}" href="{% url 'landlord_dashboard' %}"><i class="bi bi-house-door-fill"></i> Landlord</a>
+            {% else %}
+              <a class="nav-link" href="{% url 'login' %}?next={% url 'landlord_dashboard' %}"><i class="bi bi-house-door-fill"></i> Landlord</a>
+            {% endif %}
+          </li>
+          <li class="nav-item mx-2">
+            {% if user.is_authenticated and user.role == "tenant" %}
+              <a class="nav-link {% if request.path == url_tenant %}active{% endif %}" href="{% url 'tenant_dashboard' %}"><i class="bi bi-person-check-fill"></i> Tenant</a>
+            {% else %}
+              <a class="nav-link" href="{% url 'login' %}?next={% url 'tenant_dashboard' %}"><i class="bi bi-person-check-fill"></i> Tenant</a>
+            {% endif %}
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="/admin/"><i class="bi bi-gear-fill"></i> Admin</a>
+          </li>
+          {% if user.is_authenticated %}
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+          {% else %}
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+          {% endif %}
+        </ul>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+  
+  {% block content %}{% endblock %}
 
-{% block content %}
-
-
-
-
-{% endblock %}
-
-<footer class="bg-light text-dark py-4 mt-5 mr-5 ml-5">
+  <footer class="bg-light text-dark py-4 mt-5">
     <div class="container">
       <div class="row">
         <!-- Contact Info -->
         <div class="col-md-6 mb-3">
           <h5>Contact Us</h5>
-          <p class="mb-1"><i class="bi bi-envelope-fill me-2"></i>Email: support@propmanager.com</p>
-          <p class="mb-0"><i class="bi bi-telephone-fill me-2"></i>Phone: +254 701 537 423</p>
+          <p class="mb-1"><i class="bi bi-envelope-fill me-2"></i>support@propmanager.com</p>
+          <p class="mb-0"><i class="bi bi-telephone-fill me-2"></i>+254 701 537 423</p>
         </div>
-  
         <!-- Quick Links -->
         <div class="col-md-3 mb-3">
           <h5>Quick Links</h5>
           <ul class="list-unstyled">
-            <li><a href="/" class="text-dark text-decoration-none">Home</a></li>
-            <li><a href="/about" class="text-dark text-decoration-none">About</a></li>
-            <li><a href="/terms" class="text-dark text-decoration-none">Terms & Conditions</a></li>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'terms' %}">Terms &amp; Conditions</a></li>
           </ul>
         </div>
-  
-        <!-- Social -->
+        <!-- Social Icons -->
         <div class="col-md-3 mb-3">
           <h5>Follow Us</h5>
-          <a href="#" class="text-dark me-3"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="text-dark me-3"><i class="bi bi-twitter-x"></i></a>
-          <a href="#" class="text-dark"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="me-3"><i class="bi bi-twitter"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
         </div>
       </div>
-  
-      <!-- Copyright -->
-      <hr class="border-dark">
+      <hr>
       <p class="text-center mb-0">&copy; 2025 PropManager. All rights reserved.</p>
     </div>
   </footer>
+
   <script src="{% static 'assets/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

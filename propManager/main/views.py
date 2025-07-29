@@ -1,21 +1,35 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Property, Booking, Review, Favorite, Profile, PropertyImage, TenantInteraction
+from .models import Property, Booking, Review,User, Favorite, Profile, PropertyImage, TenantInteraction
 from django.db.models import Sum, Count
 from django.shortcuts import get_object_or_404  
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_protect
 from django.db import IntegrityError
-from .models import User
-from .forms import PropertyForm
-from .forms import BookingForm
+from .forms import BookingForm,PropertyForm, ReviewForm
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils import timezone
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 
-# Create your views here.
+class RoleBasedLoginView(LoginView):
+    template_name = 'login.html'  # or your custom login template
+    redirect_authenticated_user = True         # so logged‑in users don’t see the form again
+
+    def get_success_url(self):
+        user = self.request.user
+        # assume you’ve stored role on the profile
+        role = User.Profile.role  
+        if role == "Landlord":
+            return reverse_lazy('dashboard:landlord_dashboard')
+        elif role == "Tenant":
+            return reverse_lazy('dashboard:tenant_dashboard')
+        # fallback
+        return super().get_success_url()
+
 def index(request):
     return render(request, 'index.html')
 
@@ -95,13 +109,11 @@ def login_view(request):
                 return redirect('login')
 
             login(request, user)
-            # ✅ Redirect user based on their role
+            # Redirect user based on their role
             if user.role == 'tenant':
                 return redirect('tenant_dashboard')
             elif user.role == 'landlord':
                 return redirect('landlord_dashboard')
-            elif user.role == 'property_manager':
-                return redirect('manager_dashboard')
             elif user.role == 'admin':
                 return redirect('/admin/')  # Django admin site
 
@@ -121,11 +133,16 @@ def tenant_dashboard(request):
 
 @login_required
 def tenant_bookings(request):
-    bookings = Booking.objects.filter(tenant=request.user).order_by('-date')
+    status = request.GET.get('status')
+    bookings = Booking.objects.filter(tenant=request.user)
+    if status:
+        bookings = bookings.filter(status=status)
+    bookings = bookings.order_by('-date')
     context = {
         'user': request.user,
         'bookings': bookings,
         'active_page': 'bookings',
+        'status_filter': status,
     }
     return render(request, 'tenant_bookings.html', context)
 
@@ -193,7 +210,11 @@ def landlord_dashboard(request):
 @login_required
 def landlord_bookings(request):
     properties = Property.objects.filter(landlord=request.user)
-    bookings = Booking.objects.filter(property__in=properties).select_related('tenant', 'property').order_by('-date')
+    status = request.GET.get('status')
+    bookings = Booking.objects.filter(property__in=properties)
+    if status:
+        bookings = bookings.filter(status=status)
+    bookings = bookings.select_related('tenant', 'property').order_by('-date')
     if request.method == 'POST':
         booking_id = request.POST.get('booking_id')
         action = request.POST.get('action')
@@ -212,16 +233,22 @@ def landlord_bookings(request):
         'bookings': bookings,
         'user': request.user,
         'active_page': 'bookings',
+        'status_filter': status,
     })
 
 @login_required
 def tenant_interactions(request):
     properties = Property.objects.filter(landlord=request.user)
-    interactions = TenantInteraction.objects.filter(property__in=properties)
+    status = request.GET.get('status')
+    bookings = Booking.objects.filter(property__in=properties)
+    if status:
+        bookings = bookings.filter(status=status)
+    bookings = bookings.select_related('tenant', 'property').order_by('-created_at')
     return render(request, 'view_tenants.html', {
-        'interactions': interactions,
+        'bookings': bookings,
         'active_page': 'tenants',
         'user': request.user,
+        'status_filter': status,
     })
 
 @login_required
@@ -278,7 +305,24 @@ def sidebar():
 def property_detail(request, pk):
     property = get_object_or_404(Property, pk=pk)
     booking_success = False
-    if request.method == 'POST':
+    review_success = False
+    # Check if user can review (has a completed or checked-in booking for this property)
+    can_review = False
+    if request.user.is_authenticated and hasattr(request.user, 'bookings'):
+        can_review = property.bookings.filter(tenant=request.user, status__in=['checked_in', 'completed', 'payment_completed', 'approved', 'reserved']).exists()
+    # Handle review form
+    if request.method == 'POST' and 'submit_review' in request.POST:
+        review_form = ReviewForm(request.POST)
+        if review_form.is_valid() and can_review:
+            review = review_form.save(commit=False)
+            review.tenant = request.user
+            review.property = property
+            review.save()
+            review_success = True
+    else:
+        review_form = ReviewForm()
+    # Handle booking form
+    if request.method == 'POST' and 'submit_booking' in request.POST:
         form = BookingForm(request.POST)
         if form.is_valid():
             booking = form.save(commit=False)
@@ -287,7 +331,6 @@ def property_detail(request, pk):
             booking.price = property.monthly_rent
             booking.status = 'pending'
             booking.save()
-            
             # Send email to tenant
             tenant_subject = f'Booking Confirmation - {property.title}'
             tenant_html_message = render_to_string('emails/booking_confirmation_tenant.html', {
@@ -304,7 +347,6 @@ def property_detail(request, pk):
                 html_message=tenant_html_message,
                 fail_silently=False,
             )
-            
             # Send email to landlord
             landlord_subject = f'New Booking Request - {property.title}'
             landlord_html_message = render_to_string('emails/booking_notification_landlord.html', {
@@ -321,15 +363,20 @@ def property_detail(request, pk):
                 html_message=landlord_html_message,
                 fail_silently=False,
             )
-            
             messages.success(request, 'Booking request submitted! Check your email for confirmation.')
             booking_success = True
     else:
         form = BookingForm()
+    # Get all reviews for this property
+    reviews = property.reviews.select_related('tenant').order_by('-created_at')
     return render(request, 'property_detail.html', {
         'property': property,
         'form': form,
+        'review_form': review_form,
+        'can_review': can_review,
+        'reviews': reviews,
         'booking_success': booking_success,
+        'review_success': review_success,
         'active_page': 'browse',
         'user': request.user,
     })
@@ -373,7 +420,10 @@ def landlord_approve_booking(request, booking_id):
         booking.status = 'approved'
         booking.landlord_approved = True
         booking.save()
-        
+        # Set property status to Booked
+        property = booking.property
+        property.status = 'Booked'
+        property.save()
         # Send approval email to tenant
         subject = f'Booking Approved - {booking.property.title}'
         html_message = render_to_string('emails/booking_approved.html', {
@@ -421,7 +471,6 @@ def process_payment(request, booking_id):
         booking.payment_status = 'completed'
         booking.payment_date = timezone.now()
         booking.save()
-        
         # Send payment confirmation email
         subject = f'Payment Confirmed - {booking.property.title}'
         html_message = render_to_string('emails/payment_confirmed.html', {

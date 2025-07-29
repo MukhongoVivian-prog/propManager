@@ -1,5 +1,5 @@
 from django import forms
-from .models import Property, Booking
+from .models import Property, Booking, Review
 
 
 class PropertyForm(forms.ModelForm):
@@ -34,4 +34,14 @@ class BookingForm(forms.ModelForm):
         fields = ['date']
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['rating', 'comment']
+        widgets = {
+            'rating': forms.NumberInput(attrs={'class': 'form-control', 'min': 1, 'max': 5}),
+            'comment': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Write your review here...'}),
         }

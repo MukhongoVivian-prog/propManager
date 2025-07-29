@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('register/', views.register_view, name='register'),
@@ -43,5 +44,4 @@ urlpatterns = [
     path('property/<int:pk>/', views.property_detail, name='property_detail'),
     path('property/<int:pk>/edit/', views.edit_property, name='edit_property'),
     path('property/<int:pk>/delete/', views.delete_property, name='delete_property'),
-
 ]
