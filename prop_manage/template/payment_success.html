@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg border-0">
+        <div class="card-body text-center p-5">
+          <!-- Success Icon -->
+          <div class="mb-4">
+            <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+          </div>
+          
+          <!-- Success Message -->
+          <h2 class="fw-bold text-success mb-3">Payment Successful!</h2>
+          
+          <p class="text-muted mb-4">
+            Your payment has been processed successfully. You can now proceed with check-in.
+          </p>
+          
+          <!-- Payment Details -->
+          <div class="card bg-light border-0 mb-4">
+            <div class="card-body">
+              <h5 class="card-title mb-3">Payment Details</h5>
+              <div class="row text-start">
+                <div class="col-md-6">
+                  <p><strong>Property:</strong> {{ property.title }}</p>
+                  <p><strong>Amount Paid:</strong> ${{ booking.price }}</p>
+                  <p><strong>Payment Date:</strong> {{ booking.payment_date|date:"M d, Y H:i" }}</p>
+                </div>
+                <div class="col-md-6">
+                  <p><strong>Payment Status:</strong> 
+                    <span class="badge bg-success">Completed</span>
+                  </p>
+                  <p><strong>Booking Status:</strong> 
+                    <span class="badge bg-success">Payment Completed</span>
+                  </p>
+                  <p><strong>Transaction ID:</strong> #{{ booking.id }}-PAY</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Property Image -->
+          {% if property.images.first %}
+            <div class="mb-4">
+              <img src="{{ property.images.first.image.url }}" class="img-fluid rounded" style="max-height: 200px; object-fit: cover;" alt="{{ property.title }}">
+            </div>
+          {% endif %}
+          
+          <!-- Action Buttons -->
+          <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+            <a href="{% url 'checkin_booking' booking.id %}" class="btn btn-success btn-lg">
+              <i class="bi bi-box-arrow-in-right me-2"></i>Check In Now
+            </a>
+            <a href="{% url 'tenant_bookings' %}" class="btn btn-outline-primary btn-lg">
+              <i class="bi bi-calendar-check me-2"></i>View My Bookings
+            </a>
+          </div>
+          
+          <!-- Additional Info -->
+          <div class="mt-4">
+            <small class="text-muted">
+              <i class="bi bi-envelope me-1"></i>
+              A payment confirmation email has been sent to {{ user.email }}
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Auto-redirect to check-in after 3 seconds -->
+<script>
+setTimeout(function() {
+    window.location.href = "{% url 'checkin_booking' booking.id %}";
+}, 3000);
+</script>
+{% endblock %} 

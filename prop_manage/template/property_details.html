@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Property Details{% endblock %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="card shadow-lg">
+      <div class="card-body">
+        <h3 class="card-title">{{ property.title }}</h3>
+        <h6 class="text-muted">{{ property.property_type }}</h6>
+        <p class="text-secondary mt-3">{{ property.description }}</p>
+  
+        <div class="row my-4">
+          <div class="col-md-6">
+            <strong>Location:</strong> {{ property.location }}
+          </div>
+          <div class="col-md-6">
+            <strong>Monthly Rent:</strong> ${{ property.monthly_rent }}
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <strong>Amenities:</strong>
+          <ul class="list-inline">
+            {% if property.wifi %}<li class="list-inline-item badge bg-primary">WiFi</li>{% endif %}
+            {% if property.parking %}<li class="list-inline-item badge bg-success">Parking</li>{% endif %}
+            {% if property.gym %}<li class="list-inline-item badge bg-warning text-dark">Gym</li>{% endif %}
+            {% if property.pool %}<li class="list-inline-item badge bg-info text-dark">Pool</li>{% endif %}
+            {% if property.security %}<li class="list-inline-item badge bg-dark">Security</li>{% endif %}
+            {% if property.elevator %}<li class="list-inline-item badge bg-secondary">Elevator</li>{% endif %}
+          </ul>
+        </div>
+  
+        {% if property.images.all %}
+        <div class="row">
+          {% for image in property.images.all %}
+          <div class="col-md-4 mb-3">
+            <img src="{{ image.image.url }}" class="img-fluid rounded" alt="Property Image">
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}

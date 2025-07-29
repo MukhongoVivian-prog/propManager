@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Display messages -->
+{% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<section class="h-100" style="background-color: #f8f9fa;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-4 shadow-sm">
+          <div class="row g-0">
+
+            <!-- Left Image -->
+            <div class="col-md-6 d-none d-md-block">
+              <img src="{% static 'images/login-image.jpg' %}" alt="login" class="img-fluid rounded-start h-100" style="object-fit: cover;" />
+            </div>
+
+            <!-- Right Form -->
+            <div class="col-md-6">
+              <div class="card-body p-5">
+
+                <h3 class="mb-3 fw-bold text-center">Welcome Back</h3>
+                <p class="text-muted text-center mb-4">Login to your account</p>
+
+                <form method="POST" action="{% url 'login' %}">
+                  {% csrf_token %}
+
+                  <!-- Role -->
+                  <div class="mb-3">
+                    <label for="role" class="form-label">I am a</label>
+                    <select class="form-select" id="role" name="role" required>
+                      <option value="" disabled {% if not request.POST.role %}selected{% endif %}>Choose your role</option>
+                      <option value="tenant" {% if request.POST.role == 'tenant' %}selected{% endif %}>Tenant</option>
+                      <option value="landlord" {% if request.POST.role == 'landlord' %}selected{% endif %}>Landlord</option>
+                      <option value="admin" {% if request.POST.role == 'admin' %}selected{% endif %}>Admin</option>
+                    </select>
+                  </div>
+
+                  <!-- Email -->
+                  <div class="form-outline mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-control"
+                           value="{{ request.POST.email }}" required />
+                  </div>
+
+                  <!-- Password -->
+                  <div class="form-outline mb-4">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" required />
+                  </div>
+
+                  <!-- Submit Button -->
+                  <div class="d-grid">
+                    <button class="btn btn-primary btn-lg" type="submit">Login</button>
+                  </div>
+
+                  <div class="mt-3 text-center small">
+                    <a href="#" class="text-muted me-3">Forgot password?</a>
+                    <a href="#" class="text-muted">Privacy Policy</a>
+                  </div>
+
+                  <p class="mt-4 text-center">
+                    Don’t have an account? <a href="{% url 'register' %}">Register here</a>
+                  </p>
+                </form>
+
+              </div>
+            </div>
+            <!-- End Form -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

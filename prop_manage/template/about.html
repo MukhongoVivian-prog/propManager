@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section bg-primary text-white py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="display-4 fw-bold mb-4">About PropManager</h1>
+        <p class="lead mb-4">Empowering Kenyans with safe, transparent, and efficient property management solutions.</p>
+        <p class="mb-4">Born from the frustration of house hunting scams and unreliable property management, our team of three passionate developers decided to create a platform that puts tenants and landlords first.</p>
+      </div>
+      <div class="col-lg-6 text-center">
+        <img src="{% static 'assets/images/hero3.jpg' %}" 
+             alt="Modern Building" class="img-fluid rounded shadow-lg" style="max-height: 400px; object-fit: cover;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mission & Vision Section -->
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-5">
+            <div class="mb-4">
+              <i class="bi bi-bullseye text-primary" style="font-size: 3rem;"></i>
+            </div>
+            <h3 class="card-title fw-bold mb-3">Our Mission</h3>
+            <p class="card-text text-muted">To revolutionize property management in Kenya by providing a transparent, secure, and user-friendly platform that connects reliable landlords with quality tenants, eliminating the stress and uncertainty of traditional house hunting.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-5">
+            <div class="mb-4">
+              <i class="bi bi-eye text-success" style="font-size: 3rem;"></i>
+            </div>
+            <h3 class="card-title fw-bold mb-3">Our Vision</h3>
+            <p class="card-text text-muted">To become Kenya's leading property management platform, setting the standard for transparency, reliability, and customer satisfaction in the real estate industry while contributing to the growth of safe and affordable housing solutions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Values Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold mb-3">Our Core Values</h2>
+      <p class="text-muted">The principles that guide everything we do</p>
+    </div>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="text-center">
+          <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+            <i class="bi bi-shield-check" style="font-size: 2rem;"></i>
+          </div>
+          <h5 class="fw-bold mb-3">Trust & Transparency</h5>
+          <p class="text-muted">We believe in complete transparency in all our dealings. No hidden fees, no surprises, just honest and reliable service.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="text-center">
+          <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+            <i class="bi bi-people-fill" style="font-size: 2rem;"></i>
+          </div>
+          <h5 class="fw-bold mb-3">Customer First</h5>
+          <p class="text-muted">Every decision we make is centered around providing the best experience for our users. Your success is our success.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="text-center">
+          <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+            <i class="bi bi-lightning-charge" style="font-size: 2rem;"></i>
+          </div>
+          <h5 class="fw-bold mb-3">Innovation</h5>
+          <p class="text-muted">We continuously innovate to solve real problems faced by Kenyans in the property market, making processes simpler and more efficient.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team Section -->
+<section class="py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold mb-3">Meet Our Team</h2>
+      <p class="text-muted">The three developers who decided to make a difference</p>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 mb-4">
+        <div class="card border-0 shadow-sm text-center">
+          <div class="card-body p-4">
+            <div class="mb-3">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                   alt="Developer 1" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+            </div>
+            <h5 class="fw-bold mb-2">Alex Kamau</h5>
+            <p class="text-primary mb-2">Lead Developer</p>
+            <p class="text-muted small">Full-stack developer with 5+ years experience in building scalable web applications. Passionate about solving real-world problems through technology.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-4">
+        <div class="card border-0 shadow-sm text-center">
+          <div class="card-body p-4">
+            <div class="mb-3">
+              <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                   alt="Developer 2" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+            </div>
+            <h5 class="fw-bold mb-2">Sarah Wanjiku</h5>
+            <p class="text-primary mb-2">UI/UX Designer</p>
+            <p class="text-muted small">Creative designer focused on creating intuitive and beautiful user experiences. Believes that great design should solve problems and delight users.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-4">
+        <div class="card border-0 shadow-sm text-center">
+          <div class="card-body p-4">
+            <div class="mb-3">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                   alt="Developer 3" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+            </div>
+            <h5 class="fw-bold mb-2">David Ochieng</h5>
+            <p class="text-primary mb-2">Backend Developer</p>
+            <p class="text-muted small">Backend specialist with expertise in database design and API development. Ensures our platform is secure, fast, and reliable for all users.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Story Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4">
+        <h2 class="fw-bold mb-4">Our Story</h2>
+        <p class="text-muted mb-4">It all started with a simple frustration - the endless cycle of house hunting scams and unreliable property management in Kenya. Three friends, all tech enthusiasts, decided enough was enough.</p>
+        <p class="text-muted mb-4">After experiencing firsthand the challenges of finding decent accommodation in Nairobi, we came together to build a solution that would make property management transparent, reliable, and user-friendly.</p>
+        <p class="text-muted">What began as a side project has grown into a platform that's helping thousands of Kenyans find their perfect homes without the stress and uncertainty of traditional house hunting.</p>
+      </div>
+      <div class="col-lg-6">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+             alt="Team Collaboration" class="img-fluid rounded shadow-lg">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-3 mb-4">
+        <div class="border-end">
+          <h2 class="fw-bold text-primary mb-2">500+</h2>
+          <p class="text-muted">Happy Tenants</p>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="border-end">
+          <h2 class="fw-bold text-success mb-2">200+</h2>
+          <p class="text-muted">Verified Properties</p>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="border-end">
+          <h2 class="fw-bold text-warning mb-2">50+</h2>
+          <p class="text-muted">Trusted Landlords</p>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div>
+          <h2 class="fw-bold text-info mb-2">98%</h2>
+          <p class="text-muted">Satisfaction Rate</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %} 

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg border-0">
+        <div class="card-body text-center p-5">
+          <!-- Success Icon -->
+          <div class="mb-4">
+            <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+          </div>
+          
+          <!-- Success Message -->
+          <h2 class="fw-bold text-success mb-3">
+            {% if booking.status == 'reserved' %}
+              Booking Reserved Successfully!
+            {% elif booking.status == 'checked_in' %}
+              Check-in Successful!
+            {% else %}
+              Booking Confirmed!
+            {% endif %}
+          </h2>
+          
+          <p class="text-muted mb-4">
+            {% if booking.status == 'reserved' %}
+              Your booking has been reserved and is awaiting check-in.
+            {% elif booking.status == 'checked_in' %}
+              You have successfully checked in to your property.
+            {% else %}
+              Your booking request has been submitted successfully.
+            {% endif %}
+          </p>
+          
+          <!-- Booking Details -->
+          <div class="card bg-light border-0 mb-4">
+            <div class="card-body">
+              <h5 class="card-title mb-3">Booking Details</h5>
+              <div class="row text-start">
+                <div class="col-md-6">
+                  <p><strong>Property:</strong> {{ property.title }}</p>
+                  <p><strong>Location:</strong> {{ property.location }}</p>
+                  <p><strong>Date:</strong> {{ booking.date }}</p>
+                </div>
+                <div class="col-md-6">
+                  <p><strong>Price:</strong> ${{ booking.price }}</p>
+                  <p><strong>Status:</strong> 
+                    {% if booking.status == 'pending' %}
+                      <span class="badge bg-warning text-dark">Pending</span>
+                    {% elif booking.status == 'reserved' %}
+                      <span class="badge bg-info">Reserved</span>
+                    {% elif booking.status == 'checked_in' %}
+                      <span class="badge bg-success">Checked In</span>
+                    {% endif %}
+                  </p>
+                  <p><strong>Booking ID:</strong> #{{ booking.id }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Property Image -->
+          {% if property.images.first %}
+            <div class="mb-4">
+              <img src="{{ property.images.first.image.url }}" class="img-fluid rounded" style="max-height: 200px; object-fit: cover;" alt="{{ property.title }}">
+            </div>
+          {% endif %}
+          
+          <!-- Action Buttons -->
+          <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+            <a href="{% url 'index' %}" class="btn btn-primary btn-lg">
+              <i class="bi bi-house me-2"></i>Back to Home
+            </a>
+            <a href="{% url 'tenant_bookings' %}" class="btn btn-outline-primary btn-lg">
+              <i class="bi bi-calendar-check me-2"></i>View My Bookings
+            </a>
+          </div>
+          
+          <!-- Additional Info -->
+          <div class="mt-4">
+            <small class="text-muted">
+              <i class="bi bi-envelope me-1"></i>
+              A confirmation email has been sent to {{ user.email }}
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Auto-redirect to home page after 5 seconds -->
+<script>
+setTimeout(function() {
+    window.location.href = "{% url 'index' %}";
+}, 5000);
+</script>
+{% endblock %} 

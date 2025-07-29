@@ -1,0 +1,341 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'assets/css/index.css' %}">
+{% block content %}
+
+<!-- Alert Banner -->
+<div class="alert alert-primary alert-dismissible fade show mb-0" role="alert">
+  <div class="container d-flex align-items-center">
+    <i class="bi bi-bell-fill me-2"></i>
+    <i class="bi bi-rocket-fill me-2"></i>
+    <span>New properties added! Browse the latest listings now.</span>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+
+<!-- Hero Carousel -->
+<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="position-relative" style="background: linear-gradient(rgba(200, 203, 207, 0.8), rgba(171, 174, 178, 0.8)), url('{% static 'images/carousel5.png' %}') center/cover; min-height: 600px;">
+        <div class="container d-flex align-items-center justify-content-center" style="min-height: 600px;">
+          <div class="text-white text-center">
+            <h1 class="display-4 fw-bold mb-4">
+              Find Your Perfect <span class="text-warning">Rental Property</span>
+            </h1>
+            <p class="lead mb-4">
+              Discover thousands of verified properties from trusted landlords. Your dream home is just a search away.
+            </p>
+            <div class="row justify-content-center">
+              <div class="col-md-8 col-lg-6">
+                <div class="bg-white rounded-3 p-4 shadow-lg">
+                  <form class="row g-3">
+                    <div class="col-md-3">
+                      <div class="input-group">
+                        <span class="input-group-text bg-transparent border-end-0">
+                          <i class="bi bi-geo-alt-fill text-primary"></i>
+                        </span>
+                        <select class="form-select border-start-0" aria-label="Select location">
+                          <option selected>Select location</option>
+                          <option value="nairobi">Nairobi</option>
+                          <option value="mombasa">Mombasa</option>
+                          <option value="kisumu">Kisumu</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="input-group">
+                        <span class="input-group-text bg-transparent border-end-0">
+                          <i class="bi bi-house-fill text-primary"></i>
+                        </span>
+                        <select class="form-select border-start-0" aria-label="Property type">
+                          <option selected>Property type</option>
+                          <option value="apartment">Apartment</option>
+                          <option value="house">House</option>
+                          <option value="studio">Studio</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <input type="number" class="form-control" placeholder="$ Min price" aria-label="Min price">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="number" class="form-control" placeholder="$ Max price" aria-label="Max price">
+                    </div>
+                    <div class="col-12 text-center mt-3">
+                      <button type="submit" class="btn btn-primary btn-lg px-5">
+                        <i class="bi bi-search me-2"></i>Search Properties
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <a href="{% url 'register' %}" class="btn btn-warning btn-lg me-3">
+                <i class="bi bi-house me-2"></i>Find a House (Tenant)
+              </a>
+              <a href="{% url 'register' %}" class="btn btn-light btn-lg">
+                <i class="bi bi-building me-2"></i>List Your Property (Landlord)
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="position-relative" style="background: linear-gradient(rgba(205, 208, 212, 0.8), rgba(195, 206, 223, 0.8)), url('{% static 'images/carousel4.png' %}') center/cover; min-height: 600px;">
+        <div class="container d-flex align-items-center justify-content-center" style="min-height: 600px;">
+          <div class="text-white text-center">
+            <h1 class="display-4 fw-bold mb-4">
+              Luxury Properties in <span class="text-warning">Prime Locations</span>
+            </h1>
+            <p class="lead mb-4">
+              Experience the finest selection of premium rental properties with modern amenities and excellent locations.
+            </p>
+            <div class="mt-4">
+              <a href="{% url 'properties' %}" class="btn btn-warning btn-lg me-3">
+                <i class="bi bi-eye me-2"></i>View Properties
+              </a>
+              <a href="{% url 'register' %}" class="btn btn-light btn-lg">
+                <i class="bi bi-person-plus me-2"></i>Join Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="position-relative" style="background: linear-gradient(rgba(180, 182, 184, 0.8), rgba(182, 189, 200, 0.8)), url('{% static 'images/carousel4.png' %}') center/cover; min-height: 600px;">
+        <div class="container d-flex align-items-center justify-content-center" style="min-height: 600px;">
+          <div class="text-white text-center">
+            <h1 class="display-4 fw-bold mb-4">
+              Trusted by <span class="text-warning">Thousands</span> of Users
+            </h1>
+            <p class="lead mb-4">
+              Join our community of satisfied tenants and landlords. Start your journey today!
+            </p>
+            <div class="mt-4">
+              <a href="{% url 'login' %}" class="btn btn-warning btn-lg me-3">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Login
+              </a>
+              <a href="{% url 'register' %}" class="btn btn-light btn-lg">
+                <i class="bi bi-person-plus me-2"></i>Sign Up
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+<!-- Stats Section -->
+<div class="bg-white text-primary py-5">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-4 mb-3">
+        <h2 class="display-6 fw-bold">10,000+</h2>
+        <p class="lead">Properties Listed</p>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h2 class="display-6 fw-bold">5,000+</h2>
+        <p class="lead">Happy Tenants</p>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h2 class="display-6 fw-bold">1,000+</h2>
+        <p class="lead">Verified Landlords</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Welcome Section -->
+<div class="container my-5">
+  <div class="row align-items-center">
+    <div class="col-md-6 mb-4 mb-md-0">
+      <h2 class="fw-bold mb-3">Welcome to PropManager</h2>
+      <p class="lead">PropManager is your trusted platform for seamless property management and rental solutions. We connect tenants and landlords through our innovative platform, making property management easier, more transparent, and more efficient than ever before.</p>
+      <p>Whether you're looking for your dream rental home or need to manage your property portfolio, PropManager has you covered with powerful tools and a user-friendly experience.</p>
+      <a href="#" class="btn btn-primary mt-3">Learn More About Us</a>
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="{% static 'images/carousel5.png' %}" alt="Welcome" class="img-fluid rounded shadow" style="max-height: 320px; object-fit: cover;">
+    </div>
+  </div>
+</div>
+
+<!-- Featured Properties Section -->
+<div class="container my-5">
+  <h2 class="text-center fw-bold mb-4">Featured Properties</h2>
+  <p class="text-center text-muted mb-5">Discover our handpicked selection of premium rental properties available now</p>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <img src="{% static 'images/carousel3.png' %}" class="card-img-top" alt="Modern Downtown Apartment" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <span class="badge bg-primary mb-2">Apartment</span>
+          <span class="badge bg-light text-primary float-end">$1,200/month</span>
+          <h5 class="card-title mt-2">Modern Downtown Apartment</h5>
+          <p class="card-text text-muted mb-1"><i class="bi bi-geo-alt me-1"></i>Downtown, City Center</p>
+          <div class="mb-2">
+            <span class="text-warning"><i class="bi bi-star-fill"></i> 4.8</span> <small class="text-muted">(124 reviews)</small>
+          </div>
+          <div class="d-flex flex-wrap small text-muted mb-2">
+            <span class="me-3"><i class="bi bi-door-closed"></i> 2 Bedrooms</span>
+            <span class="me-3"><i class="bi bi-badge-wc"></i> 2 Bathrooms</span>
+            <span><i class="bi bi-car-front"></i> Parking</span>
+          </div>
+          <a href="#" class="btn btn-outline-primary w-100">View Details</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <img src="{% static 'images/bedroom.jpg' %}" class="card-img-top" alt="Luxury Bedsitter Studio" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <span class="badge bg-secondary mb-2">Bedsitter</span>
+          <span class="badge bg-light text-primary float-end">$800/month</span>
+          <h5 class="card-title mt-2">Luxury Bedsitter Studio</h5>
+          <p class="card-text text-muted mb-1"><i class="bi bi-geo-alt me-1"></i>Uptown, Riverside</p>
+          <div class="mb-2">
+            <span class="text-warning"><i class="bi bi-star-fill"></i> 4.6</span> <small class="text-muted">(89 reviews)</small>
+          </div>
+          <div class="d-flex flex-wrap small text-muted mb-2">
+            <span class="me-3"><i class="bi bi-door-closed"></i> 1 Bedroom</span>
+            <span class="me-3"><i class="bi bi-badge-wc"></i> 1 Bathroom</span>
+          </div>
+          <a href="#" class="btn btn-outline-primary w-100">View Details</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <img src="{% static 'images/carousel4.png' %}" class="card-img-top" alt="Contemporary Urban Living" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <span class="badge bg-primary mb-2">Apartment</span>
+          <span class="badge bg-light text-primary float-end">$1,500/month</span>
+          <h5 class="card-title mt-2">Contemporary Urban Living</h5>
+          <p class="card-text text-muted mb-1"><i class="bi bi-geo-alt me-1"></i>Midtown, Business District</p>
+          <div class="mb-2">
+            <span class="text-warning"><i class="bi bi-star-fill"></i> 4.9</span> <small class="text-muted">(156 reviews)</small>
+          </div>
+          <div class="d-flex flex-wrap small text-muted mb-2">
+            <span class="me-3"><i class="bi bi-door-closed"></i> 3 Bedrooms</span>
+            <span class="me-3"><i class="bi bi-badge-wc"></i> 2 Bathrooms</span>
+            <span><i class="bi bi-car-front"></i> Parking</span>
+          </div>
+          <a href="#" class="btn btn-outline-primary w-100">View Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-4">
+    <a href="#" class="btn btn-outline-primary">View All Properties</a>
+  </div>
+</div>
+
+<!-- Why Choose PropManager Section -->
+<div class="bg-light py-5">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-4">Why Choose PropManager?</h2>
+    <p class="text-center text-muted mb-5">We're committed to providing the best property management experience with cutting-edge technology and exceptional service.</p>
+    <div class="row text-center">
+      <div class="col-md-3 mb-4">
+        <div class="mb-3"><i class="bi bi-people-fill" style="font-size: 2.5rem; color: #0d6efd;"></i></div>
+        <h5 class="fw-semibold">Easy to Use</h5>
+        <p class="text-muted small">Intuitive platform designed for both tenants and landlords with user-friendly interfaces and smooth navigation.</p>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="mb-3"><i class="bi bi-clock-history" style="font-size: 2.5rem; color: #0d6efd;"></i></div>
+        <h5 class="fw-semibold">24/7 Support</h5>
+        <p class="text-muted small">Round-the-clock customer support to help you with any questions or issues you might encounter.</p>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="mb-3"><i class="bi bi-shield-lock" style="font-size: 2.5rem; color: #0d6efd;"></i></div>
+        <h5 class="fw-semibold">Secure & Reliable</h5>
+        <p class="text-muted small">Bank-grade security measures and verified listings ensure your data and transactions are always protected.</p>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="mb-3"><i class="bi bi-star-fill" style="font-size: 2.5rem; color: #0d6efd;"></i></div>
+        <h5 class="fw-semibold">Verified Properties</h5>
+        <p class="text-muted small">All properties undergo thorough verification processes to ensure quality and authenticity for your peace of mind.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Testimonials Section -->
+<div class="container my-5">
+  <h2 class="text-center fw-bold mb-4">What Our Users Say</h2>
+  <p class="text-center text-muted mb-5">Don't just take our word for it. Here's what our satisfied users have to say about their PropManager experience.</p>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg p-4 text-center">
+        <div class="mb-3">
+          <i class="bi bi-quote" style="font-size: 2rem; color: #0d6efd;"></i>
+        </div>
+        <blockquote class="blockquote mb-4">
+          <p class="mb-0">"The verification process gave me confidence in my rental choice. Knowing that all properties are thoroughly checked makes such a difference in peace of mind."</p>
+        </blockquote>
+        <div class="d-flex align-items-center justify-content-center">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="rounded-circle me-3" width="48" height="48">
+          <div class="text-start">
+            <div class="fw-semibold">Emily Rodriguez</div>
+            <div class="text-muted small">Tenant</div>
+          </div>
+        </div>
+        <div class="mt-3">
+          <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+          <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+          <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+          <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+          <span class="text-warning"><i class="bi bi-star-half"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Call to Action Section -->
+<div class="py-5" style="background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);">
+  <div class="container">
+    <h2 class="text-center text-white fw-bold mb-4">Ready to Rent or List Your Property?</h2>
+    <p class="text-center text-white-50 mb-5">Join thousands of satisfied users who have found their perfect rental match through PropManager. Start your journey today!</p>
+    <div class="row justify-content-center mb-4">
+      <div class="col-md-4 mb-3">
+        <div class="bg-white rounded-3 p-4 text-center h-100">
+          <div class="mb-3"><i class="bi bi-house-door-fill text-primary" style="font-size: 2.5rem;"></i></div>
+          <h5 class="fw-semibold">For Tenants</h5>
+          <p class="text-muted small">Find your perfect rental home with verified listings and transparent pricing.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="bg-white rounded-3 p-4 text-center h-100">
+          <div class="mb-3"><i class="bi bi-person-badge-fill text-primary" style="font-size: 2.5rem;"></i></div>
+          <h5 class="fw-semibold">For Landlords</h5>
+          <p class="text-muted small">List your properties and connect with qualified tenants effortlessly.</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <a href="#" class="btn btn-light btn-lg px-5">Get Started Today <i class="bi bi-arrow-right ms-2"></i></a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

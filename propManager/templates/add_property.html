@@ -1,0 +1,112 @@
+<!-- chat_app/templates/chat_app/add_property.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}Add New Property{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="container py-5">
+        <div class="card p-4 shadow-sm form-container-custom">
+            <h1 class="mb-4 text-center">Add New Property</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="{{ form.property_title.id_for_label }}" class="form-label">{{ form.property_title.label }}</label>
+                        {{ form.property_title|add_class:"form-control" }}
+                        {% if form.property_title.errors %}
+                            <div class="text-danger">
+                                {% for error in form.property_title.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="{{ form.property_type.id_for_label }}" class="form-label">{{ form.property_type.label }}</label>
+                        {{ form.property_type|add_class:"form-select" }} {# Use form-select for dropdowns #}
+                        {% if form.property_type.errors %}
+                            <div class="text-danger">
+                                {% for error in form.property_type.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.description.id_for_label }}" class="form-label">{{ form.description.label }}</label>
+                    {{ form.description|add_class:"form-control" }}
+                    {% if form.description.errors %}
+                        <div class="text-danger">
+                            {% for error in form.description.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="{{ form.location.id_for_label }}" class="form-label">{{ form.location.label }}</label>
+                        {{ form.location|add_class:"form-control" }}
+                        {% if form.location.errors %}
+                            <div class="text-danger">
+                                {% for error in form.location.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="{{ form.monthly_rent.id_for_label }}" class="form-label">{{ form.monthly_rent.label }}</label>
+                        {{ form.monthly_rent|add_class:"form-control" }}
+                        {% if form.monthly_rent.errors %}
+                            <div class="text-danger">
+                                {% for error in form.monthly_rent.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+               {% comment %} <div class="mb-3">
+                    <label class="form-label">{{ form.amenities.label }}</label>
+                    <div class="row">
+                        {% for checkbox in form.amenities %}
+                            <div class="col-md-4 col-sm-6 col-12">
+                                <div class="form-check">
+                                
+                                    {{ checkbox|add_class:"form-check-input" }}
+                                    <label class="form-check-label" for="{{ checkbox.id_for_label }}">
+                                        {{ checkbox.choice_label }}
+                                    </label>
+                                </div>
+                            </div>
+                        {% endfor %} {% endcomment %}
+                    </div>
+                    {% if form.amenities.errors %}
+                        <div class="text-danger">
+                            {% for error in form.amenities.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.property_images.id_for_label }}" class="form-label">{{ form.property_images.label }}</label>
+                    {# Basic Bootstrap file input #}
+                    {{ form.property_images|add_class:"form-control" }}
+                    {% comment %} For a custom drag-and-drop look, you'd need more JS and custom HTML,
+                       but this gives you Bootstrap styling #} {% endcomment %}
+
+                    {% if form.property_images.help_text %}
+                        <div class="form-text">{{ form.property_images.help_text }}</div>
+                    {% endif %}
+                    {% if form.property_images.errors %}
+                        <div class="text-danger">
+                            {% for error in form.property_images.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mt-3">Add Property</button>
+            </form>
+        </div>
+    </div>
+
+   {% endblock %}
