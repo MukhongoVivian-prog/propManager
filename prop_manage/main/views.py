@@ -107,7 +107,8 @@ def login_view(request):
             elif user.role == 'admin':
                 return redirect('/admin/')  # Django admin site
 
-        messages.error(request, "Invalid credentials.")
+        else:
+            messages.error(request, "Invalid credentials.")
         return redirect('login')
 
     return render(request, 'login.html')
